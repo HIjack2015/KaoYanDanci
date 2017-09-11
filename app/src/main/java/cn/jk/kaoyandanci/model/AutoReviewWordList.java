@@ -58,7 +58,6 @@ public class AutoReviewWordList extends WordList {
 
 
     /**
-     * 将当前单词 置入这一天的sp中
      *
      * @return
      */

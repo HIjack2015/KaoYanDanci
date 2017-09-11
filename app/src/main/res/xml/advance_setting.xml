@@ -17,6 +17,11 @@
         android:key="@string/core_mode"
         android:persistent="true"
         android:title="核心模式" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/hide_easy"
+        android:persistent="true"
+        android:title="去除简单词" />
     <Preference
         android:key="@string/export_word"
         android:title="单词导出" />

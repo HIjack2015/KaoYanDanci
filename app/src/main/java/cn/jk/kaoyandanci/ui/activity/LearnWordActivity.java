@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 import cn.jk.kaoyandanci.R;
 import cn.jk.kaoyandanci.model.AutoReviewWordList;
 import cn.jk.kaoyandanci.model.DayReviewWordList;
+import cn.jk.kaoyandanci.model.DefaultWordList;
 import cn.jk.kaoyandanci.model.LearnWordList;
 import cn.jk.kaoyandanci.model.Word;
 import cn.jk.kaoyandanci.model.WordList;
@@ -98,7 +99,14 @@ public class LearnWordActivity extends BaseActivity {
 
         mode = getIntent().getStringExtra(Constant.MODE);
 
-        if (mode.equals(Constant.LEARN_MODE)) {
+
+        if (mode == null || mode.isEmpty()) {
+
+
+            String title = getIntent().getStringExtra(Constant.TITLE);
+            List<Word> wordList = (List<Word>) getIntent().getSerializableExtra(Constant.WORD_LIST);
+            words = new DefaultWordList(context, wordList, title);
+        } else if (mode.equals(Constant.LEARN_MODE)) {
             words = new LearnWordList(this);
         } else if (mode.equals(Constant.REVIEW_MODE)) {
             Date reviewDate = (Date) getIntent().getSerializableExtra(Constant.REVIEW_DATE);
@@ -144,6 +152,7 @@ public class LearnWordActivity extends BaseActivity {
                 } else {
                     words.currentUnknown();
                     unknownBtn.setText("下一个");
+                    knowBtn.setText("认识");
                     chineseTxt.setVisibility(View.VISIBLE);
                 }
             }
@@ -156,6 +165,7 @@ public class LearnWordActivity extends BaseActivity {
                     next();
                 } else {
                     knowBtn.setText("下一个");
+                    unknownBtn.setText("不认识");
                     chineseTxt.setVisibility(View.VISIBLE);
                 }
             }
@@ -279,6 +289,11 @@ public class LearnWordActivity extends BaseActivity {
                 cancelGraspBtn.setVisibility(View.INVISIBLE);
             }
         });
+        if (currentWord.isNeverShow()) {
+            cancelGraspBtn.setVisibility(View.VISIBLE);
+        } else {
+            cancelGraspBtn.setVisibility(View.INVISIBLE);
+        }
 
     }
 

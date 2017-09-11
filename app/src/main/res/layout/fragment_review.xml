@@ -33,6 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/calendarView">
 
         <LinearLayout
+            android:id="@+id/knowLyt"
             style="@style/oneOfThree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,6 +55,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/unknownLyt"
             style="@style/oneOfThree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,6 +78,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/neverShowLyt"
             style="@style/oneOfThree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

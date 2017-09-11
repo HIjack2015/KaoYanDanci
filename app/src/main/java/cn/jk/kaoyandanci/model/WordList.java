@@ -20,7 +20,7 @@ public abstract class WordList {
     WordDao wordDao;
     int currentPosition = 0;
     String spName;
-
+    String title = "学习单词";
 
     public WordList(Context context) {
         this.context = context;
@@ -133,7 +133,7 @@ public abstract class WordList {
     }
 
     public String getListName() {
-        return "学习单词";
+        return title;
     }
 
     public String getFinishMessage() {

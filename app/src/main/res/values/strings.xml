@@ -84,4 +84,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="core_mode">core_mode</string>
     <string name="export_word">export_word</string>
+    <string name="hide_easy">hideEasy</string>
 </resources>

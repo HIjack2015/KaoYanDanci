@@ -11,19 +11,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.greenrobot.greendao.query.WhereCondition;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.jk.kaoyandanci.InitApplication;
 import cn.jk.kaoyandanci.R;
 import cn.jk.kaoyandanci.model.DaoSession;
+import cn.jk.kaoyandanci.model.Word;
 import cn.jk.kaoyandanci.model.WordDao;
 import cn.jk.kaoyandanci.ui.activity.LearnWordActivity;
 import cn.jk.kaoyandanci.util.Constant;
@@ -54,7 +59,21 @@ public class ReviewFragment extends Fragment {
 
     @BindView(R.id.neverShowCount)
     TextView neverShowCountTxt;
+    @BindView(R.id.knowLyt)
+    LinearLayout knowLyt;
+    @BindView(R.id.unknownLyt)
+    LinearLayout unknownLyt;
+    @BindView(R.id.neverShowLyt)
+    LinearLayout neverShowLyt;
 
+    Date reviewDate = calendar.getTime();
+
+    WhereCondition afterStart = WordDao.Properties.LastLearnTime.ge(DayUtil.getStartOfDay(reviewDate));
+    WhereCondition beforeEnd = WordDao.Properties.LastLearnTime.le(DayUtil.getEndOfDay(reviewDate));
+    WhereCondition shouldShow = WordDao.Properties.NeverShow.isNull();
+    WhereCondition learned = WordDao.Properties.KnowTime.gt(0);
+    WhereCondition unLearned = WordDao.Properties.KnowTime.isNull();
+    WhereCondition neverShow = WordDao.Properties.NeverShow.gt(0);
 
     public ReviewFragment() {
         // Required empty public constructor
@@ -111,22 +130,27 @@ public class ReviewFragment extends Fragment {
 
 
     public void setCount() {
-        Date reviewDate = calendar.getTime();
-        WhereCondition afterStart = WordDao.Properties.LastLearnTime.ge(DayUtil.getStartOfDay(reviewDate));
-        WhereCondition beforeEnd = WordDao.Properties.LastLearnTime.le(DayUtil.getEndOfDay(reviewDate));
-        WhereCondition shouldShow = WordDao.Properties.NeverShow.isNull();
-        WhereCondition learned = WordDao.Properties.KnowTime.gt(0);
-        WhereCondition unLearned = WordDao.Properties.KnowTime.isNull();
-        WhereCondition neverShow = WordDao.Properties.NeverShow.gt(0);
 
-        Integer knowCount = wordDao.queryBuilder().where(afterStart, beforeEnd, shouldShow, learned).listLazy().size();
-        Integer unKnownCount = wordDao.queryBuilder().where(afterStart, beforeEnd, shouldShow, unLearned).listLazy().size();
-        Integer neverShowCount = wordDao.queryBuilder().where(afterStart, beforeEnd, neverShow).listLazy().size();
+
+        Integer knowCount = getDayKnowList().size();
+        Integer unKnownCount = getDayUnknownList().size();
+        Integer neverShowCount = getDayNeverShowList().size();
         unknownCountTxt.setText(unKnownCount.toString());
         knowCountTxt.setText(knowCount.toString());
         neverShowCountTxt.setText(neverShowCount.toString());
     }
 
+    private List<Word> getDayKnowList() {
+        return wordDao.queryBuilder().where(afterStart, beforeEnd, shouldShow, learned).list();
+    }
+
+    private List<Word> getDayUnknownList() {
+        return wordDao.queryBuilder().where(afterStart, beforeEnd, shouldShow, unLearned).list();
+    }
+
+    private List<Word> getDayNeverShowList() {
+        return wordDao.queryBuilder().where(afterStart, beforeEnd, neverShow).list();
+    }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -137,6 +161,40 @@ public class ReviewFragment extends Fragment {
                 SPUtil.putAndApply(context, Constant.SMART_REVIEW_TIP, true);
             }
         }
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+    }
+
+    @OnClick({R.id.knowLyt, R.id.unknownLyt, R.id.neverShowLyt})
+    public void onViewClicked(View view) {
+        Intent intent = new Intent(getActivity(), LearnWordActivity.class);
+
+        List<Word> wordList = null;
+        String title = null;
+        switch (view.getId()) {
+            case R.id.knowLyt:
+                wordList = getDayKnowList();
+                title = "认识单词按天复习";
+                break;
+            case R.id.unknownLyt:
+                wordList = getDayUnknownList();
+                title = "不认识单词按天复习";
+                break;
+            case R.id.neverShowLyt:
+                wordList = getDayNeverShowList();
+                title = "已掌握单词复习";
+                break;
+        }
+
+        intent.putExtra(Constant.WORD_LIST, (Serializable) wordList);
+        intent.putExtra(Constant.TITLE, title);
+
+        context.startActivity(intent);
 
     }
 }
