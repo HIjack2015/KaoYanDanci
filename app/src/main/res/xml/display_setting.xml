@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <PreferenceCategory android:title="@string/display_set">
+
+        <!--所有的key不能用 @string/-->
+        <cn.jk.kaoyandanci.ui.preference.ColorPickerPreference
+            android:key="primary_color_key"
+            android:persistent="false"
+            android:summary="@string/primary_color_summary"
+            android:title="@string/primary_color" />
+
+        <cn.jk.kaoyandanci.ui.preference.ColorPickerPreference
+            android:key="accent_color_key"
+            android:persistent="false"
+            android:summary="@string/accent_color_summary"
+            android:title="@string/accent_color" />
+
+
+        <cn.jk.kaoyandanci.ui.preference.ColorPickerPreference
+            android:key="text_primary_color_key"
+            android:persistent="false"
+            android:summary="@string/primary_text_color_summary"
+            android:title="@string/primary_text_color" />
+
+        <cn.jk.kaoyandanci.ui.preference.ColorPickerPreference
+            android:key="text_second_color_key"
+            android:persistent="false"
+            android:summary="@string/secondary_text_color_summary"
+            android:title="@string/secondary_text_color" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/system_ui_colors">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/colored_status_bar_on"
+            android:persistent="false"
+            android:summary="@string/colored_status_bar_summary"
+            android:title="@string/colored_status_bar" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/colored_nav_bar_on"
+            android:persistent="false"
+            android:summary="@string/colored_nav_bar_summary"
+            android:title="@string/colored_nav_bar" />
+
+    </PreferenceCategory>
+    <Preference
+        android:key="restoreDefault"
+        android:title="恢复默认主题" />
+
+</PreferenceScreen>

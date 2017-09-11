@@ -1,0 +1,81 @@
+<resources>
+
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light">
+
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+    <style name="AppThemeDark.ActionBar" parent="Theme.AppCompat">
+
+    </style>
+
+    <style name="AppThemeDark" parent="Theme.AppCompat.NoActionBar">
+
+    </style>
+
+    <style name="DescText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <style name="ValueText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:layout_marginRight">16dp</item>
+    </style>
+
+    <style name="reviewValueText">
+        <item name="android:textSize">25sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="reviewDescText">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="oneOfThree">
+        <item name="android:layout_weight">0.333333</item>
+    </style>
+
+
+    <style name="introText">
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_marginTop">40dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="margin16">
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="aboutTextStyle">
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:ellipsize">marquee</item>
+
+    </style>
+
+    <style name="longButton">
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_width">240dp</item>
+        <item name="android:layout_height">53dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintRight_toRightOf">parent</item>
+        <item name="layout_constraintLeft_toLeftOf">parent</item>
+    </style>
+
+
+</resources>

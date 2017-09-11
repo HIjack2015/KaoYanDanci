@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/dark_theme_on"
+        android:persistent="true"
+        android:title="@string/dark_theme" />
+    <Preference
+        android:key="displaySetting"
+        android:title="主题设置"></Preference>
+    <Preference
+        android:defaultValue="10"
+        android:dialogTitle="每日应学单词数"
+        android:inputType="number"
+        android:key="@string/should_learn"
+        android:title="学习计划" />
+    <Preference
+        android:key="@string/advance_setting"
+        android:title="高级设置" />
+    <Preference
+        android:key="@string/about_app"
+        android:title="关于软件"></Preference>
+
+</PreferenceScreen>

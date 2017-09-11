@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondaryDark"
+    tools:context="cn.jk.kaoyandanci.ui.fragment.Intro2Fragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:background="@drawable/intro_back2"
+        android:contentDescription="@string/introBack" />
+
+    <TextView
+        style="@style/introText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:text="单词多种状态\n精准数据统计\n高度自由设置\n助你考研成功" />
+
+
+</RelativeLayout>

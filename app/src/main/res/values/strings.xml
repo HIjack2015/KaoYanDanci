@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">考研单词</string>
+
+
+    <string name="title_home">主页</string>
+    <string name="startLearn">开始学习</string>
+    <string name="title_review">复习</string>
+    <string name="title_setting">设置</string>
+
+
+    <string name="tips_never_show">这表示您已经完全掌握了这个单词,它将不再显示在学习和复习中,是否不再显示?</string>
+    <string name="searchTips">所查单词不在考研大纲内,请点击键盘上的的搜索按钮来联网搜索.</string>
+    <string name="confirm_never_show">已完全掌握</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="startReview">开始复习</string>
+    <string name="startAutoReview">智能复习</string>
+
+    <string name="progress">进度</string>
+    <string name="defaultTestDate">2017-12-23</string>
+    <string name="defaultChinese">TextView\\hello\\nice</string>
+    <string name="introBack">介绍图</string>
+
+
+    <string name="primary_color_key">primary_color_key</string>
+    <string name="accent_color_key">accent_color_key</string>
+    <string name="dark_theme_on">dark_theme_on</string>
+
+    <string name="display_set">主题设置</string>
+
+    <string name="dark_theme">夜间模式</string>
+    <string name="dark_theme_summary">应用夜间模式至整个应用</string>
+
+    <string name="primary_color">基础色</string>
+    <string name="primary_color_summary">更改主题基础色</string>
+
+    <string name="accent_color">强调色</string>
+    <string name="accent_color_summary">更改主题强调色</string>
+
+    <string name="colored_status_bar">状态栏跟随</string>
+    <string name="colored_status_bar_summary">开启后顶部状态栏颜色跟随主题变化</string>
+
+    <string name="colored_nav_bar">导航栏跟随</string>
+    <string name="colored_nav_bar_summary">开启后底部导航栏颜色跟随主题变化</string>
+    <string name="primary_text_color">文字强调色</string>
+    <string name="primary_text_color_summary"> 更改强调型文字颜色</string>
+    <string name="secondary_text_color">文字一般色</string>
+    <string name="secondary_text_color_summary">更改大部分文字颜色</string>
+    <string name="system_ui_colors">系统界面颜色</string>
+    <string name="colored_status_bar_on">colored_status_bar_on</string>
+    <string name="colored_nav_bar_on">colored_nav_bar_on</string>
+    <string name="text_primary_color_key">text_primary_color_key</string>
+    <string name="text_second_color_key">text_second_color_key</string>
+
+
+    <string name="done">完成</string>
+    <string name="custom">自定义</string>
+
+    <string name="button_allow">允许</string>
+    <string name="button_deny">拒绝</string>
+    <string name="button_enter">确定</string>
+    <string name="button_cancel">取消</string>
+    <string name="back">返回</string>
+    <string name="should_learn">shouldLearn</string>
+    <string name="cancel_grasp">取消掌握</string>
+    <string name="alipayUrl">http://qr.alipay.com/FKX001588VV47I7FULZF7F</string>
+    <string name="about_app">about_pref</string>
+    <string name="app_desc">小巧干净的考研单词工具</string>
+    <string name="share_content">我正在使用考研单词app备战考研英语,这东西还不错,你也来试试?</string>
+    <string name="donate_use">  &#160;&#160;&#160;&#160;你的捐赠是我继续前行的动力,谢谢你的支持.</string>
+    <string name="download_voice_pack">download_voice_pack</string>
+    <string name="pleaseDonate">语音包使用了云存储,这东西开发者是贴了钱的,所以如果您要使用此功能,
+        请打开-关于软件-捐赠开发者,向开发者付款5角
+        多谢合作.</string>
+    <string name="unziping">解压中.大概需要2分钟.完成后会有提示.中途不要退出应用..</string>
+    <string name="unzip_finished">解压完成...记得付款5角...谢谢合作:)</string>
+    <string name="cancel_use_voice_pack">算了,我不想出钱</string>
+    <string name="confirm_use_voice_pack">行,下完就付款</string>
+    <string name="already_have_pack">已经下载语音包,不用下载了.如果还是不能离线发音.请清除缓存重试.</string>
+    <string name="submit">提交</string>
+    <string name="advance_setting">高级设置</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="core_mode">core_mode</string>
+    <string name="export_word">export_word</string>
+</resources>

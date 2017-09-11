@@ -1,0 +1,117 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+    }
+}
+
+// In your app projects build.gradle file:
+
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
+android {
+    signingConfigs {
+        release {
+            keyAlias 'key0'
+            keyPassword 'key2015'
+            storeFile file('K:/android/androidKey/androidKey.jks')
+            storePassword 'key2015'
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion '25.0.3'
+    defaultConfig {
+        applicationId "cn.jk.kaoyandanci"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 5
+        versionName "1.4"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java-gen']
+        }
+    }
+
+    buildTypes {
+        //开发调试的时候有效
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            debuggable true
+        }
+        //打包的时候使用
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //混淆
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            //加载混淆配置文件
+            //proguard-android.txt为默认的混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            signingConfig signingConfigs.release
+
+        }
+    }
+    productFlavors {
+    }
+}
+greendao {
+    schemaVersion 3
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    repositories {
+        maven {
+            url 'https://maven.google.com'
+        }
+    }
+    //数据库
+    //view兼容
+    //json解析
+    //view注入
+    //图表支持
+    //音频缓存//当前没用
+    //功能介绍页面
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'org.greenrobot:greendao:3.2.2'
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    compile 'com.github.apl-devs:appintro:v4.2.0'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
+    compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
+    compile 'com.afollestad:aesthetic:0.4.7'
+    compile 'com.danikula:videocache:2.7.0'
+    compile 'com.android.volley:volley:1.0.0'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.json:json:20140107'
+    testCompile 'com.google.code.gson:gson:2.8.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+}
+uploadArchives.enabled = false

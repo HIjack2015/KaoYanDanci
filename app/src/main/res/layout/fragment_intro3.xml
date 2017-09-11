@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="cn.jk.kaoyandanci.ui.fragment.Intro3Fragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:background="@drawable/intro_back3"
+        android:contentDescription="@string/introBack" />
+
+    <TextView
+        style="@style/introText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:text="无广告,无推送,无需联网\n专注你的学习." />
+</RelativeLayout>
