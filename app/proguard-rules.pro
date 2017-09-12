@@ -97,3 +97,8 @@ public static java.lang.String TABLENAME;
 -keep class * implements android.os.Parcelable {         # 保持 Parcelable 不被混淆
     public static final android.os.Parcelable$Creator *;
 }
+-dontwarn com.tencent.bugly.** #不混淆bugly
+-keep public class com.tencent.bugly.**{*;}
+
+-renamesourcefileattribute SourceFile # 保持行号
+-keepattributes SourceFile,LineNumberTable

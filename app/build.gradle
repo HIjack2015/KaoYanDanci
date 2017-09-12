@@ -15,7 +15,12 @@ buildscript {
 
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
+apply plugin: 'bugly'
 
+bugly {
+    appId = '11cc1a2754' // 注册时分配的App ID
+    appKey = 'e25c40c6-1024-40c2-9ba5-cc56a1869bcf' // 注册时分配的App Key
+}
 android {
     signingConfigs {
         release {
@@ -31,8 +36,8 @@ android {
         applicationId "cn.jk.kaoyandanci"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     sourceSets {
@@ -93,6 +98,7 @@ dependencies {
     //图表支持
     //音频缓存//当前没用
     //功能介绍页面
+    compile 'com.tencent.bugly:crashreport:2.6.5'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'

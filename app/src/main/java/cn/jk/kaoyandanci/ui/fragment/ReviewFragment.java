@@ -68,12 +68,7 @@ public class ReviewFragment extends Fragment {
 
     Date reviewDate = calendar.getTime();
 
-    WhereCondition afterStart = WordDao.Properties.LastLearnTime.ge(DayUtil.getStartOfDay(reviewDate));
-    WhereCondition beforeEnd = WordDao.Properties.LastLearnTime.le(DayUtil.getEndOfDay(reviewDate));
-    WhereCondition shouldShow = WordDao.Properties.NeverShow.isNull();
-    WhereCondition learned = WordDao.Properties.KnowTime.gt(0);
-    WhereCondition unLearned = WordDao.Properties.KnowTime.isNull();
-    WhereCondition neverShow = WordDao.Properties.NeverShow.gt(0);
+    WhereCondition afterStart, beforeEnd, neverShow, shouldShow, learned, unLearned;
 
     public ReviewFragment() {
         // Required empty public constructor
@@ -130,8 +125,7 @@ public class ReviewFragment extends Fragment {
 
 
     public void setCount() {
-
-
+        reviewDate = calendar.getTime();
         Integer knowCount = getDayKnowList().size();
         Integer unKnownCount = getDayUnknownList().size();
         Integer neverShowCount = getDayNeverShowList().size();
@@ -141,15 +135,28 @@ public class ReviewFragment extends Fragment {
     }
 
     private List<Word> getDayKnowList() {
+        setWhereCondition();
         return wordDao.queryBuilder().where(afterStart, beforeEnd, shouldShow, learned).list();
     }
 
     private List<Word> getDayUnknownList() {
+        setWhereCondition();
         return wordDao.queryBuilder().where(afterStart, beforeEnd, shouldShow, unLearned).list();
     }
 
     private List<Word> getDayNeverShowList() {
+        setWhereCondition();
         return wordDao.queryBuilder().where(afterStart, beforeEnd, neverShow).list();
+    }
+
+    private void setWhereCondition() {
+        afterStart = WordDao.Properties.LastLearnTime.ge(DayUtil.getStartOfDay(reviewDate));
+        beforeEnd = WordDao.Properties.LastLearnTime.le(DayUtil.getEndOfDay(reviewDate));
+        shouldShow = WordDao.Properties.NeverShow.isNull();
+        learned = WordDao.Properties.KnowTime.gt(0);
+        unLearned = WordDao.Properties.KnowTime.isNull();
+        neverShow = WordDao.Properties.NeverShow.gt(0);
+
     }
 
     @Override

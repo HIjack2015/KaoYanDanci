@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import cn.jk.kaoyandanci.model.DaoMaster;
 import cn.jk.kaoyandanci.model.DaoSession;
@@ -13,6 +14,8 @@ import cn.jk.kaoyandanci.util.Constant;
 import cn.jk.kaoyandanci.util.MediaFileNameGenerator;
 import cn.jk.kaoyandanci.util.SPUtil;
 import cn.jk.kaoyandanci.util.WordDatabase;
+
+import static android.os.Build.ID;
 
 
 /**
@@ -58,6 +61,9 @@ public class InitApplication extends Application {
             daoSession = daoMaster.newSession();
         }
 
+        CrashReport.initCrashReport(getApplicationContext(), "11cc1a2754", false);
+
+        CrashReport.testJavaCrash();
 
     }
 

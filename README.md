@@ -26,5 +26,6 @@ Copyright (C) 2017 火把工作室.
 [sqliteassethelper](https://github.com/jgilfelt/android-sqlite-asset-helper) |  便捷的升级和管理数据库
 [appintro](https://github.com/apl-devs/AppIntro) |  快速制作app引导页
 [AndroidVideoCache](https://github.com/danikula/AndroidVideoCache) | 提供发音缓存
+[bugly](https://bugly.qq.com/v2/index) |提供崩溃统计.
 ## 感谢
 感谢每一个捐赠或鼓励我的人 /比心.
