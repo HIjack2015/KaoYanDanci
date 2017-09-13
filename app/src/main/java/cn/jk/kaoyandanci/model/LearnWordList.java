@@ -34,11 +34,11 @@ public class LearnWordList extends WordList {
         String querySql = "";
         String coreSql = "";
         if (Config.coreModeIsOn()) {
-            coreSql = "and hot=1 ";
+            coreSql = " and hot=1 ";
         }
         if (shouldLearn <= 0) {
             ToastUtil.showShort(context, "已经完成今日计划，请随意发挥");
-            querySql = " where never_show is null" + coreSql + " ORDER BY RANDOM() LIMIT 1000";
+            querySql = " where never_show is null " + coreSql + " ORDER BY RANDOM() LIMIT 1000";
         } else {
             querySql = " where never_show is null " + coreSql + " ORDER BY RANDOM() LIMIT " + shouldLearn;
         }

@@ -23,6 +23,9 @@
         android:persistent="true"
         android:title="去除简单词" />
     <Preference
+        android:key="@string/easy_word_list"
+        android:title="简单词列表" />
+    <Preference
         android:key="@string/export_word"
         android:title="单词导出" />
     <Preference

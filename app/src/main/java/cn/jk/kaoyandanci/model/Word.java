@@ -30,14 +30,15 @@ public class Word implements Serializable {
     Date needLearnTime;
     Integer unknownTime;
     Integer knowTime;
+    boolean easy;
     Date lastLearnTime;
 
 
-    @Generated(hash = 690425930)
+    @Generated(hash = 629362271)
     public Word(String english, String chinese, Integer neverShow, Integer knowed,
                 Integer hot, Integer collect, String phonetic, Date firstLearnTime,
                 Date neverShowTime, Date needLearnTime, Integer unknownTime,
-                Integer knowTime, Date lastLearnTime) {
+                Integer knowTime, boolean easy, Date lastLearnTime) {
         this.english = english;
         this.chinese = chinese;
         this.neverShow = neverShow;
@@ -50,12 +51,14 @@ public class Word implements Serializable {
         this.needLearnTime = needLearnTime;
         this.unknownTime = unknownTime;
         this.knowTime = knowTime;
+        this.easy = easy;
         this.lastLearnTime = lastLearnTime;
     }
 
     @Generated(hash = 3342184)
     public Word() {
     }
+
 
     public String getPhoneticFormat() {
         return "/" + phonetic + "/";
@@ -188,5 +191,13 @@ public class Word implements Serializable {
 
     public void setLastLearnTime(Date lastLearnTime) {
         this.lastLearnTime = lastLearnTime;
+    }
+
+    public boolean getEasy() {
+        return this.easy;
+    }
+
+    public void setEasy(boolean easy) {
+        this.easy = easy;
     }
 }

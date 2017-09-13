@@ -1,6 +1,7 @@
 package cn.jk.kaoyandanci.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,13 +25,14 @@ import cn.jk.kaoyandanci.R;
 import cn.jk.kaoyandanci.model.Word;
 import cn.jk.kaoyandanci.model.WordDao;
 import cn.jk.kaoyandanci.ui.activity.AdvanceSettingActivity;
+import cn.jk.kaoyandanci.ui.activity.WordListActivity;
 import cn.jk.kaoyandanci.ui.dialog.DownloadDialog;
-import cn.jk.kaoyandanci.ui.dialog.PleaseDonateDialog;
 import cn.jk.kaoyandanci.util.Constant;
 import cn.jk.kaoyandanci.util.FileUtil;
 import cn.jk.kaoyandanci.util.MD5;
-import cn.jk.kaoyandanci.util.NetWordUtil;
 import cn.jk.kaoyandanci.util.ToastUtil;
+
+import static cn.jk.kaoyandanci.util.Constant.WORD_LIST_LBL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,15 +95,13 @@ public class AdvanceSettingFragment extends PreferenceFragment {
                 return true;
             }
         });
-        Preference downloadVoicePackPref = findPreference(getString(R.string.download_voice_pack));
-        downloadVoicePackPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        Preference easyWordListPref = findPreference(getString(R.string.easy_word_list));
+        easyWordListPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if (!NetWordUtil.isOnline(getActivity())) {
-                    ToastUtil.showShort(getActivity(), "请先联网");
-                    return false;
-                }
-                new PleaseDonateDialog().show(getFragmentManager(), "pleaseDonate");
+                Intent intent = new Intent(context, WordListActivity.class);
+                intent.putExtra(WORD_LIST_LBL, Constant.EASY);
+                startActivity(intent);
                 return false;
             }
         });

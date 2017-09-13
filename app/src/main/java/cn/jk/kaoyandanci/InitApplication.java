@@ -63,8 +63,6 @@ public class InitApplication extends Application {
 
         CrashReport.initCrashReport(getApplicationContext(), "11cc1a2754", false);
 
-        CrashReport.testJavaCrash();
-
     }
 
     public DaoSession getDaoSession() {

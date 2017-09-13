@@ -101,8 +101,6 @@ public class LearnWordActivity extends BaseActivity {
 
 
         if (mode == null || mode.isEmpty()) {
-
-
             String title = getIntent().getStringExtra(Constant.TITLE);
             List<Word> wordList = (List<Word>) getIntent().getSerializableExtra(Constant.WORD_LIST);
             words = new DefaultWordList(context, wordList, title);

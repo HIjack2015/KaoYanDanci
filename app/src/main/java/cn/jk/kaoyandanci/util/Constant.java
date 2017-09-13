@@ -60,6 +60,7 @@ public class Constant {
     public static final String QUERY_SQL = "querySql";
     public static final String TITLE = "TITLE";
     public static final String QUERY_BUILDER = "QUERY_BUILDER";
+    public static final String EASY ="easy" ;
 
     public static String FIRST_OPEN = "firstOpen";
     public static boolean DATA_CHANGED = false;

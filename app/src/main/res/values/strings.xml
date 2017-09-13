@@ -85,4 +85,5 @@
     <string name="core_mode">core_mode</string>
     <string name="export_word">export_word</string>
     <string name="hide_easy">hideEasy</string>
+    <string name="easy_word_list">easy_word_list</string>
 </resources>
