@@ -73,6 +73,15 @@ public class AdvanceSettingFragment extends PreferenceFragment {
                 return true;
             }
         });
+        final SwitchPreference easyModePreference = (SwitchPreference) findPreference(getString(R.string.hide_easy));
+        easyModePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                Constant.DATA_CHANGED = true;
+                return true;
+            }
+        });
+
         Preference exportWordPref = findPreference(getString(R.string.export_word));
         exportWordPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override

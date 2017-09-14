@@ -33,14 +33,18 @@ public class LearnWordList extends WordList {
         shouldLearn = planLearn - haveLearn;
         String querySql = "";
         String coreSql = "";
+        String easySql = "";
         if (Config.coreModeIsOn()) {
             coreSql = " and hot=1 ";
         }
+        if (Config.easyModeIsOn()) {
+            easySql = " and easy is null ";
+        }
         if (shouldLearn <= 0) {
             ToastUtil.showShort(context, "已经完成今日计划，请随意发挥");
-            querySql = " where never_show is null " + coreSql + " ORDER BY RANDOM() LIMIT 1000";
+            querySql = " where never_show is null " + coreSql + easySql + " ORDER BY RANDOM() LIMIT 1000";
         } else {
-            querySql = " where never_show is null " + coreSql + " ORDER BY RANDOM() LIMIT " + shouldLearn;
+            querySql = " where never_show is null " + coreSql + easySql + " ORDER BY RANDOM() LIMIT " + shouldLearn;
         }
         words = wordDao.queryRaw(querySql);
     }

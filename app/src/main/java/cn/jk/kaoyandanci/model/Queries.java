@@ -51,7 +51,7 @@ public class Queries {
             queryBuilder.where(WordDao.Properties.Hot.eq(1));
         }
         if (easyMode) {
-            //TODO 数据库得加字段.
+            queryBuilder.where(WordDao.Properties.Easy.isNull());
         }
         return queryBuilder.list();
     }

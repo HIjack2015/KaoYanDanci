@@ -28,7 +28,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
     List<Word> wordList;
     Context context;
-
+    boolean showChinese = false;
 
     public WordListAdapter(List<Word> wordList, Context context) {
 
@@ -56,7 +56,11 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Word word = wordList.get(position);
         holder.englishTxt.setText(word.getEnglish());
-        holder.chineseTxt.setText(word.getChinese());
+        if (showChinese) {
+            holder.chineseTxt.setText(word.getChinese());
+        }else  {
+            holder.chineseTxt.setText("");
+        }
         View parentView = (View) (holder.chineseTxt.getParent());
         parentView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +86,10 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     @Override
     public int getItemCount() {
         return wordList.size();
+    }
+
+    public void setShowChinese(boolean showChinese) {
+        this.showChinese = showChinese;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

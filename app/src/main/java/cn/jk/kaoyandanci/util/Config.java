@@ -109,4 +109,16 @@ public class Config {
     public static boolean coreModeIsOn() {
         return (boolean) SPUtil.get(context, context.getString(R.string.core_mode), false);
     }
+
+    public static boolean easyModeIsOn() {
+        return (boolean) SPUtil.get(context, context.getString(R.string.hide_easy), false);
+    }
+
+    public static boolean getShowChinese() {
+        return (boolean) SPUtil.get(context, Constant.SHOW_CHINESE_LIST, true);
+    }
+
+    public static void setShowChinese(boolean showChinese) {
+        SPUtil.putAndApply(context, Constant.SHOW_CHINESE_LIST, showChinese);
+    }
 }

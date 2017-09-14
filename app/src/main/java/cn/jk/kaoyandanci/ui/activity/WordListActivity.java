@@ -3,6 +3,8 @@ package cn.jk.kaoyandanci.ui.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,9 @@ public class WordListActivity extends BaseActivity {
     @BindView(R.id.wordRcy)
     RecyclerView wordRcy;
 
+    boolean showChinese = Config.getShowChinese();
+    ArrayList<Word> words;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,15 +33,45 @@ public class WordListActivity extends BaseActivity {
 
         String label = getIntent().getStringExtra(Constant.WORD_LIST_LBL);
         boolean coreMode = Config.coreModeIsOn();
+        boolean easyMode = Config.easyModeIsOn();
         getSupportActionBar().setTitle(label);
         Queries queries = Queries.getInstance(daoSession);
         String wordType = label.replaceAll("\\d", "");
-        ArrayList<Word> words = (ArrayList<Word>) queries.getList(wordType, coreMode, false);
+        words = (ArrayList<Word>) queries.getList(wordType, coreMode, easyMode);
 
+        showWord();
+    }
+
+    private void showWord() {
         WordListAdapter wordListAdapter = new WordListAdapter(words, this);
+        wordListAdapter.setShowChinese(showChinese);
         wordRcy.setHasFixedSize(true);
         wordRcy.setLayoutManager(new LinearLayoutManager(context));
         wordRcy.setAdapter(wordListAdapter);
         wordListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_word_list, menu);
+        MenuItem showChineseChk = menu.findItem(R.id.showChineseChk);
+        showChineseChk.setChecked(Config.getShowChinese());
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.showChineseChk:
+                item.setChecked(!item.isChecked());
+                showChinese = item.isChecked();
+                Config.setShowChinese(showChinese);
+                showWord();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

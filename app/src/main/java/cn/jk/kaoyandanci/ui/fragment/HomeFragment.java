@@ -129,10 +129,11 @@ public class HomeFragment extends Fragment {
     public void drawPi() {
         Queries queries = Queries.getInstance(daoSession);
         boolean isCoreMode = Config.coreModeIsOn();
-        Integer neverShowCount = queries.getList(Constant.NEVER_SHOW, isCoreMode, false).size();
-        Integer knownWordCount = queries.getList(Constant.KNOWED, isCoreMode, false).size();
-        Integer unknownWordCount = queries.getList(Constant.UNKNOWN, isCoreMode, false).size();
-        Integer notLearnYetCount = queries.getList(Constant.NOT_LEARNED, isCoreMode, false).size();
+        boolean isEasyMode = Config.easyModeIsOn();
+        Integer neverShowCount = queries.getList(Constant.NEVER_SHOW, isCoreMode, isEasyMode).size();
+        Integer knownWordCount = queries.getList(Constant.KNOWED, isCoreMode, isEasyMode).size();
+        Integer unknownWordCount = queries.getList(Constant.UNKNOWN, isCoreMode, isEasyMode).size();
+        Integer notLearnYetCount = queries.getList(Constant.NOT_LEARNED, isCoreMode, isEasyMode).size();
 
         // todayShouldLearnTxt.setText(String.valueOf(Config.getPlanShouldLearn()));
 
