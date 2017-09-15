@@ -48,6 +48,8 @@ public class WordDetailActivity extends BaseActivity {
     boolean isNeverShow;
     @BindView(R.id.coreImg)
     ImageView coreImg;
+    @BindView(R.id.easyTxt)
+    TextView easyTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +99,11 @@ public class WordDetailActivity extends BaseActivity {
         } else {
             lastLearnTimeStr = simpleDateFormat.format(word.getLastLearnTime());
         }
-
+        if (word.getEasy() == true) {
+            easyTxt.setVisibility(View.VISIBLE);
+        } else {
+            easyTxt.setVisibility(View.INVISIBLE);
+        }
 
         knownTimeTxt.setText(knowTime);
         unknownTimeTxt.setText(unknownTime);

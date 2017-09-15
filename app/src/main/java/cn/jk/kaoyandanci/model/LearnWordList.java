@@ -38,7 +38,7 @@ public class LearnWordList extends WordList {
             coreSql = " and hot=1 ";
         }
         if (Config.easyModeIsOn()) {
-            easySql = " and easy is null ";
+            easySql = " and easy =0 ";
         }
         if (shouldLearn <= 0) {
             ToastUtil.showShort(context, "已经完成今日计划，请随意发挥");

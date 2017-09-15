@@ -10,10 +10,10 @@
         android:layout_height="320dp"
         app:cardBackgroundColor="@color/wordCardColor"
         app:cardCornerRadius="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/cancelGraspBtn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/cancelGraspBtn"
         app:layout_constraintVertical_bias="0.45">
 
         <android.support.constraint.ConstraintLayout
@@ -63,6 +63,18 @@
                     android:layout_marginStart="8dp"
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/ic_volume" />
+
+                <TextView
+                    android:id="@+id/easyTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:tag=":aesthetic_ignore"
+                    android:text="简"
+
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
             </LinearLayout>
 
             <View

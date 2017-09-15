@@ -28,7 +28,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
     List<Word> wordList;
     Context context;
-    boolean showChinese = false;
+    boolean showChinese = true;
 
     public WordListAdapter(List<Word> wordList, Context context) {
 
@@ -58,7 +58,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         holder.englishTxt.setText(word.getEnglish());
         if (showChinese) {
             holder.chineseTxt.setText(word.getChinese());
-        }else  {
+        } else {
             holder.chineseTxt.setText("");
         }
         View parentView = (View) (holder.chineseTxt.getParent());

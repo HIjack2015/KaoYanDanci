@@ -1,4 +1,4 @@
-ALTER TABLE word ADD COLUMN EASY integer;
+ALTER TABLE word ADD COLUMN EASY integer default 0;
 update word set EASY=1 where english in(
 "rabbit",
 "sky",

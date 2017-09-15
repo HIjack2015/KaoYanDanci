@@ -201,7 +201,7 @@ public class ReviewFragment extends Fragment {
         intent.putExtra(Constant.WORD_LIST, (Serializable) wordList);
         intent.putExtra(Constant.TITLE, title);
 
-        context.startActivity(intent);
+        startActivity(intent);
 
     }
 }

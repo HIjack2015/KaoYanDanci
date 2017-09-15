@@ -95,7 +95,6 @@ public class HomeFragment extends Fragment {
         wordDao = daoSession.getWordDao();
         context = getActivity().getApplicationContext();
 
-
         startLearnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

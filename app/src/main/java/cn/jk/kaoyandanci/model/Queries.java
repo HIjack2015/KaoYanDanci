@@ -35,14 +35,14 @@ public class Queries {
                 break;
             case Constant.UNKNOWN:
                 queryBuilder.where(WordDao.Properties.KnowTime.isNull()).
-                        where(WordDao.Properties.UnknownTime.gt(0)).where(WordDao.Properties.NeverShow.isNull());
+                        where(WordDao.Properties.UnknownTime.gt(0)).where(WordDao.Properties.NeverShow.isNull()).orderDesc(WordDao.Properties.UnknownTime);
                 break;
             case Constant.NOT_LEARNED:
                 queryBuilder.where(WordDao.Properties.KnowTime.isNull()).
                         where(WordDao.Properties.UnknownTime.isNull()).where(WordDao.Properties.NeverShow.isNull());
                 break;
             case Constant.KNOWED:
-                queryBuilder.where(WordDao.Properties.KnowTime.gt("0")).where(WordDao.Properties.NeverShow.isNull());
+                queryBuilder.where(WordDao.Properties.KnowTime.gt("0")).where(WordDao.Properties.NeverShow.isNull()).orderDesc(WordDao.Properties.KnowTime);
                 break;
             case Constant.EASY:
                 return queryBuilder.where(WordDao.Properties.Easy.eq(true)).list();
@@ -51,7 +51,7 @@ public class Queries {
             queryBuilder.where(WordDao.Properties.Hot.eq(1));
         }
         if (easyMode) {
-            queryBuilder.where(WordDao.Properties.Easy.isNull());
+            queryBuilder.where(WordDao.Properties.Easy.notEq(true));
         }
         return queryBuilder.list();
     }
