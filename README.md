@@ -13,9 +13,9 @@ Copyright (C) 2017 火把工作室.
 ## 下载地址
 下载地址:[点击这里](https://www.coolapk.com/apk/cn.jk.kaoyandanci)
 ## todo
-  - [ ] 加入<b>去除简单词</b>功能.
+  - [X] 加入<b>去除简单词</b>功能.
   - [ ] 修复已经发现的bug.
-  - [ ] 根据 *认识* *不认识* 进行复习.
+  - [X] 根据 *认识* *不认识* 进行复习.
 ## 第三方库
   Project  | Introduction
   -------- | ------
