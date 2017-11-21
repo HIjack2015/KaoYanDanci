@@ -16,10 +16,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
 import butterknife.Unbinder;
+import cn.jk.kaoyandanci.InitApplication;
 import cn.jk.kaoyandanci.R;
+import cn.jk.kaoyandanci.model.Queries;
 import cn.jk.kaoyandanci.model.WordDao;
 import cn.jk.kaoyandanci.ui.activity.MainActivity;
 import cn.jk.kaoyandanci.util.Config;
+import cn.jk.kaoyandanci.util.Constant;
 import cn.jk.kaoyandanci.util.DayUtil;
 import cn.jk.kaoyandanci.util.ToastUtil;
 
@@ -66,7 +69,12 @@ public class ChoosePlanDialog extends DialogFragment {
                     }
                 });
         ButterKnife.bind(this, view);
-        unGraspCount = wordDao.queryBuilder().where(WordDao.Properties.NeverShow.isNull()).listLazy().size();
+
+        boolean isCoreMode = Config.coreModeIsOn();
+        boolean isEasyMode = Config.easyModeIsOn();
+
+        Queries queries = Queries.getInstance(((InitApplication) getActivity().getApplication()).getDaoSession());
+        unGraspCount = queries.getList(Constant.NEED_LEARN, isCoreMode, isEasyMode).size();
         int learnPerDay = Config.getPlanShouldLearn();
 
         learnPerDayTxt.setText(String.valueOf(learnPerDay));

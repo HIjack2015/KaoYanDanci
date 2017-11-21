@@ -73,7 +73,7 @@
         请打开-关于软件-捐赠开发者,向开发者付款5角
         多谢合作.</string>
     <string name="unziping">解压中.大概需要2分钟.完成后会有提示.中途不要退出应用..</string>
-    <string name="unzip_finished">解压完成...记得付款5角...谢谢合作:)</string>
+    <string name="unzip_finished">解压完成...确认可以离线发音后记得付款5角...谢谢合作:)</string>
     <string name="cancel_use_voice_pack">算了,我不想出钱</string>
     <string name="confirm_use_voice_pack">行,下完就付款</string>
     <string name="already_have_pack">已经下载语音包,不用下载了.如果还是不能离线发音.请清除缓存重试.</string>

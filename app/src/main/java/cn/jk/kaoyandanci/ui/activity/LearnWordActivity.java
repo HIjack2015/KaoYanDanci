@@ -122,6 +122,9 @@ public class LearnWordActivity extends BaseActivity {
 
     }
 
+    /**
+     * 设置界面上各个部件的逻辑.
+     */
     public void setLogic() {
         autoDisplay = Config.getAutoDisplay();
 
@@ -267,7 +270,7 @@ public class LearnWordActivity extends BaseActivity {
                 int index = chinese.indexOf(showed);
                 String prefix = chinese.substring(0, index);
                 if (ChineseCheck.containChinese(prefix)) {
-                    chinese = chinese.replace(showed, "\n" + showed);
+                    chinese = chinese.replaceFirst(showed, "\n" + showed);
 
                 }
             }
@@ -358,7 +361,7 @@ public class LearnWordActivity extends BaseActivity {
         boolean urlOk = MediaUtil.display(voiceUrl, context);
         if (!urlOk) {
             if (netErrorShouldShow) {
-                ToastUtil.showShort(context, "单词发音需要连接网络.");
+                ToastUtil.showShort(context, "单词发音需要连接网络,或在高级设置中下载语音包");
                 netErrorShouldShow = false;
             }
         }

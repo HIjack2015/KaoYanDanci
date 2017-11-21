@@ -24,6 +24,7 @@ public class WordListActivity extends BaseActivity {
 
     boolean showChinese = Config.getShowChinese();
     ArrayList<Word> words;
+    int currentPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,8 @@ public class WordListActivity extends BaseActivity {
         wordRcy.setLayoutManager(new LinearLayoutManager(context));
         wordRcy.setAdapter(wordListAdapter);
         wordListAdapter.notifyDataSetChanged();
+        LinearLayoutManager layoutManager = ((LinearLayoutManager) wordRcy.getLayoutManager());
+        layoutManager.scrollToPosition(currentPosition);
     }
 
     @Override
@@ -65,10 +68,14 @@ public class WordListActivity extends BaseActivity {
         switch (item.getItemId()) {
 
             case R.id.showChineseChk:
+                LinearLayoutManager layoutManager = ((LinearLayoutManager) wordRcy.getLayoutManager());
+                currentPosition = layoutManager.findFirstVisibleItemPosition();
+
                 item.setChecked(!item.isChecked());
                 showChinese = item.isChecked();
                 Config.setShowChinese(showChinese);
                 showWord();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

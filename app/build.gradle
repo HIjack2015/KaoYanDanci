@@ -36,8 +36,8 @@ android {
         applicationId "cn.jk.kaoyandanci"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 6
-        versionName "1.5"
+        versionCode 7
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     sourceSets {

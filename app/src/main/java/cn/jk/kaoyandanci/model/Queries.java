@@ -44,8 +44,13 @@ public class Queries {
             case Constant.KNOWED:
                 queryBuilder.where(WordDao.Properties.KnowTime.gt("0")).where(WordDao.Properties.NeverShow.isNull()).orderDesc(WordDao.Properties.KnowTime);
                 break;
+            case Constant.NEED_LEARN:
+                queryBuilder.where(WordDao.Properties.NeverShow.isNull());
+                break;
             case Constant.EASY:
                 return queryBuilder.where(WordDao.Properties.Easy.eq(true)).list();
+
+
         }
         if (coreMode) {
             queryBuilder.where(WordDao.Properties.Hot.eq(1));

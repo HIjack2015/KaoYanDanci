@@ -69,6 +69,9 @@ public abstract class WordList {
     }
 
     public void currentKnown() {
+        if (currentPosition == words.size()) {
+            return;
+        }
         Word currentWord = words.get(currentPosition);
 
         if (currentWord.getKnowTime() == null) {

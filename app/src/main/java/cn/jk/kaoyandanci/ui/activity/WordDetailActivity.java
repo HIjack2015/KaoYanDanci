@@ -121,8 +121,7 @@ public class WordDetailActivity extends BaseActivity {
                 int index = chinese.indexOf(showed);
                 String prefix = chinese.substring(0, index);
                 if (ChineseCheck.containChinese(prefix)) {
-                    chinese = chinese.replace(showed, "\n" + showed);
-
+                    chinese = chinese.replaceFirst(showed, "\n" + showed);
                 }
             }
             isFirst = false;

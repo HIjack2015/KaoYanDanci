@@ -62,6 +62,7 @@ public class Constant {
     public static final String QUERY_BUILDER = "QUERY_BUILDER";
     public static final String EASY ="easy" ;
     public static final String SHOW_CHINESE_LIST = "SHOW_CHINESE_LIST";
+    public static final String NEED_LEARN = "NEED_LEARN";
 
     public static String FIRST_OPEN = "firstOpen";
     public static boolean DATA_CHANGED = false;
