@@ -109,7 +109,15 @@ public class WordDetailActivity extends BaseActivity {
         unknownTimeTxt.setText(unknownTime);
         lastLearnTime.setText(lastLearnTimeStr);
 
-
+        easyTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                word.setEasy(false);
+                ToastUtil.showShort(context, word.getEnglish() + "不再是一个简单词");
+                easyTxt.setVisibility(View.INVISIBLE);
+                wordDao.update(word);
+            }
+        });
         String chinese = word.getChinese();
         String regex = "[a-z]+\\.";
         Matcher matcher = Pattern.compile(regex).matcher(chinese);
@@ -154,7 +162,22 @@ public class WordDetailActivity extends BaseActivity {
 
             }
         });
-
+        englishTxt.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Word currentWord = word;
+                if (currentWord.getCollect() != null) {
+                    word.setCollect(null);
+                    wordDao.update(word);
+                    ToastUtil.showShort(context, "取消收藏单词" + currentWord.getEnglish());
+                } else {
+                    currentWord.setCollect(1);
+                    wordDao.update(currentWord);
+                    ToastUtil.showShort(context, "成功收藏单词" + currentWord.getEnglish());
+                }
+                return false;
+            }
+        });
         getSupportActionBar().setTitle("单词详情");
     }
 

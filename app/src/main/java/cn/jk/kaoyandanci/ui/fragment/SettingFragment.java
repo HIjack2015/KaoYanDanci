@@ -14,6 +14,7 @@ import cn.jk.kaoyandanci.R;
 import cn.jk.kaoyandanci.ui.activity.AboutActivity;
 import cn.jk.kaoyandanci.ui.activity.AdvanceSettingActivity;
 import cn.jk.kaoyandanci.ui.activity.DisplaySettingActivity;
+import cn.jk.kaoyandanci.ui.activity.MyWordListActivity;
 import cn.jk.kaoyandanci.ui.dialog.ChoosePlanDialog;
 import cn.jk.kaoyandanci.util.Constant;
 
@@ -86,6 +87,14 @@ public class SettingFragment extends PreferenceFragment {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 startActivity(new Intent(getActivity(), AboutActivity.class));
+                return false;
+            }
+        });
+        Preference myWordPref = findPreference(getString(R.string.my_word_list));
+        myWordPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                startActivity(new Intent(getActivity(), MyWordListActivity.class));
                 return false;
             }
         });

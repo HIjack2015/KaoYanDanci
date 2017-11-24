@@ -79,11 +79,12 @@
     <string name="already_have_pack">已经下载语音包,不用下载了.如果还是不能离线发音.请清除缓存重试.</string>
     <string name="submit">提交</string>
     <string name="advance_setting">高级设置</string>
-
+    <string name="my_word_list">我的单词</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="core_mode">core_mode</string>
     <string name="export_word">export_word</string>
     <string name="hide_easy">hideEasy</string>
     <string name="easy_word_list">easy_word_list</string>
+    <string name="title_activity_my_word_list">MyWordListActivity</string>
 </resources>

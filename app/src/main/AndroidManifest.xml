@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="cn.jk.kaoyandanci">
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -40,7 +40,8 @@
         <activity android:name=".ui.activity.DonateActivity" />
         <activity android:name=".ui.activity.FeedbackActivity" />
         <activity android:name=".ui.activity.WordListActivity" />
-        <activity android:name=".ui.activity.AdvanceSettingActivity"></activity>
+        <activity android:name=".ui.activity.AdvanceSettingActivity" />
+        <activity android:name=".ui.activity.MyWordListActivity"/>
     </application>
 
 </manifest>

@@ -15,6 +15,9 @@
         android:key="@string/should_learn"
         android:title="学习计划" />
     <Preference
+        android:key="@string/my_word_list"
+        android:title="我的单词" />
+    <Preference
         android:key="@string/advance_setting"
         android:title="高级设置" />
     <Preference

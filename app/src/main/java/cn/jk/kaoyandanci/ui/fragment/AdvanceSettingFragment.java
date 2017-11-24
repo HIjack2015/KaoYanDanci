@@ -1,14 +1,18 @@
 package cn.jk.kaoyandanci.ui.fragment;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
+import android.support.v13.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 
@@ -27,9 +31,11 @@ import cn.jk.kaoyandanci.model.WordDao;
 import cn.jk.kaoyandanci.ui.activity.AdvanceSettingActivity;
 import cn.jk.kaoyandanci.ui.activity.WordListActivity;
 import cn.jk.kaoyandanci.ui.dialog.DownloadDialog;
+import cn.jk.kaoyandanci.ui.dialog.PleaseDonateDialog;
 import cn.jk.kaoyandanci.util.Constant;
 import cn.jk.kaoyandanci.util.FileUtil;
 import cn.jk.kaoyandanci.util.MD5;
+import cn.jk.kaoyandanci.util.NetWordUtil;
 import cn.jk.kaoyandanci.util.ToastUtil;
 
 import static cn.jk.kaoyandanci.util.Constant.WORD_LIST_LBL;
@@ -104,6 +110,27 @@ public class AdvanceSettingFragment extends PreferenceFragment {
                 return true;
             }
         });
+        Preference downloadVoicePackPref = findPreference(getString(R.string.download_voice_pack));
+        downloadVoicePackPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                if (!NetWordUtil.isOnline(getActivity())) {
+                    ToastUtil.showShort(getActivity(), "请先联网");
+                    return false;
+                }
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //有时间写onActivity result.反正接下来也有dialog.
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 10
+                    );
+
+                }
+                new PleaseDonateDialog().show(getFragmentManager(), "pleaseDonate");
+                return false;
+            }
+        });
         Preference easyWordListPref = findPreference(getString(R.string.easy_word_list));
         easyWordListPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -115,6 +142,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
             }
         });
     }
+
 
     /**
      * 导出单词至sdcard/kaoyandanci/word.txt.完成后提示
@@ -137,6 +165,12 @@ public class AdvanceSettingFragment extends PreferenceFragment {
     }
 
     public void startDownload() {
+        if (ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ToastUtil.showShort(context, "请给我存储权限");
+            return;
+        }
         downloadDialog = new DownloadDialog();
         downloadDialog.show(getFragmentManager(), "downloadProgressDialog");
 
@@ -155,6 +189,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
          */
         @Override
         protected String doInBackground(String... f_url) {
+
             File downloadZip = new File(Environment
                     .getExternalStorageDirectory().toString()
                     + Constant.ENGLISH_ZIP_PATH);

@@ -174,12 +174,28 @@ public class LearnWordActivity extends BaseActivity {
         if (autoDisplay) {
             displayPronunciation();
         }
+
         cardView.setOnTouchListener(new OnSwipeTouchListener(this) {
             public void onSwipeLeft() {
                 previous();
             }
+
         });
 
+        englishTxt.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Word currentWord = words.getCurrent();
+                if (currentWord.getCollect() != null) {
+                    ToastUtil.showShort(context, "已经收藏过了");
+                } else {
+                    currentWord.setCollect(1);
+                    wordDao.update(currentWord);
+                    ToastUtil.showShort(context, "成功收藏单词" + currentWord.getEnglish());
+                }
+                return false;
+            }
+        });
         //手动改变progressBar颜色
         Aesthetic.get()
                 .colorAccent()
