@@ -92,6 +92,16 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         exportWordPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 10
+                    );
+                    ToastUtil.showShort(context, "请在授权后再试");
+
+                    return false;
+                }
                 ToastUtil.showShort(context, "正在将单词导出为到sdcard/kaoyandanci/word.txt,请稍候.");
                 new Thread(new Runnable() {
                     @Override

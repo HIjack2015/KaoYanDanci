@@ -31,6 +31,7 @@ public class Constant {
     public static final String QUESTION = "QUESTION";
     public static final String youdaoVoiceUrl = "http://dict.youdao.com//dictvoice?type=2&audio=";
     public static final String shanbeiVoiceUrl = "http://media.shanbay.com/audio/us/";
+    public static String cibaUrl= "http://dict-co.iciba.com/api/dictionary.php?key=AA6C7429C3884C9E766C51187BD1D86F&type=json&w=";
     public static final String PLAN_LEARN = "shouldLearn";
     public static final String SHOULD_SHOW_SETTING_FRAGMENT = "SHOULD_SHOW_SETTING_FRAGMENT";
     public static final String COMMON_QUESTION = "commonQuestion";

@@ -16,7 +16,8 @@ import cn.jk.kaoyandanci.R;
 import cn.jk.kaoyandanci.model.Word;
 import cn.jk.kaoyandanci.model.WordDao;
 import cn.jk.kaoyandanci.ui.adapter.WordListAdapter;
-    import cn.jk.kaoyandanci.util.Config;
+import cn.jk.kaoyandanci.ui.dialog.AddWordDialog;
+import cn.jk.kaoyandanci.util.Config;
 import cn.jk.kaoyandanci.util.ToastUtil;
 
 public class MyWordListActivity extends BaseActivity {
@@ -35,8 +36,8 @@ public class MyWordListActivity extends BaseActivity {
         QueryBuilder<Word> queryBuilder = wordDao.queryBuilder();
         words = queryBuilder.where(WordDao.Properties.Collect.eq(1)).list();
         getSupportActionBar().setTitle("我的单词");
-        if (words.size()==0) {
-            ToastUtil.showShort(context,"在学习单词时长按卡片空白处可以收藏单词.");
+        if (words.size() == 0) {
+            ToastUtil.showShort(context, "在学习单词时长按卡片空白处可以收藏单词.");
         }
         showWord();
     }
@@ -64,7 +65,7 @@ public class MyWordListActivity extends BaseActivity {
                 showWord();
                 return true;
             case R.id.addWord:
-
+                new AddWordDialog().show(getFragmentManager(), " ");
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -79,5 +80,11 @@ public class MyWordListActivity extends BaseActivity {
         wordListAdapter.notifyDataSetChanged();
         LinearLayoutManager layoutManager = ((LinearLayoutManager) wordRcy.getLayoutManager());
         layoutManager.scrollToPosition(currentPosition);
+    }
+
+    public void refresh() {
+        QueryBuilder<Word> queryBuilder = wordDao.queryBuilder();
+        words = queryBuilder.where(WordDao.Properties.Collect.eq(1)).list();
+        showWord();
     }
 }

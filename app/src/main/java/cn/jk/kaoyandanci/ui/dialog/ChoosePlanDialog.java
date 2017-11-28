@@ -37,7 +37,6 @@ public class ChoosePlanDialog extends DialogFragment {
     EditText needDayTxt;
     @BindView(R.id.finishTimeTxt)
     TextView finishTimeTxt;
-    Unbinder unbinder;
     MainActivity context;
     WordDao wordDao;
     //未掌握单词数目.
