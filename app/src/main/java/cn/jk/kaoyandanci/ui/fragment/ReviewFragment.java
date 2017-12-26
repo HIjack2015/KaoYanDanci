@@ -84,7 +84,7 @@ public class ReviewFragment extends Fragment {
         daoSession = ((InitApplication) getActivity().getApplication()).getDaoSession();
         wordDao = daoSession.getWordDao();
         context = getActivity().getApplicationContext();
-
+        //TODO 这里有一个bug.
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -116,6 +116,7 @@ public class ReviewFragment extends Fragment {
             }
         });
         setCount();
+        calendarView.setDate(Calendar.getInstance().getTime().getTime());
         return view;
     }
 
@@ -202,6 +203,12 @@ public class ReviewFragment extends Fragment {
         intent.putExtra(Constant.TITLE, title);
 
         startActivity(intent);
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        calendarView.setDate(Calendar.getInstance().getTime().getTime());
 
     }
 }

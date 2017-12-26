@@ -37,7 +37,7 @@ public class MyWordListActivity extends BaseActivity {
         words = queryBuilder.where(WordDao.Properties.Collect.eq(1)).list();
         getSupportActionBar().setTitle("我的单词");
         if (words.size() == 0) {
-            ToastUtil.showShort(context, "在学习单词时长按卡片空白处可以收藏单词.");
+            ToastUtil.showShort(context, "在学习单词时长按卡片英文可以收藏单词.");
         }
         showWord();
     }
@@ -86,5 +86,11 @@ public class MyWordListActivity extends BaseActivity {
         QueryBuilder<Word> queryBuilder = wordDao.queryBuilder();
         words = queryBuilder.where(WordDao.Properties.Collect.eq(1)).list();
         showWord();
+    }
+
+    @Override
+    public void onResume() {
+        refresh();
+        super.onResume();
     }
 }

@@ -68,7 +68,6 @@ public class Constant {
     public static String FIRST_OPEN = "firstOpen";
     public static boolean DATA_CHANGED = false;
     public static int nextDelay = 1500;
-    public static Date beginDate = new Date();
     public static int allWordCount = 5492;
     public static int PLAN_LEARN_NO = 10;
     public static String youdaoWordPageUrl = "https://m.youdao.com/dict?le=eng&q=";
@@ -76,16 +75,7 @@ public class Constant {
     public static String shouldShowGuide = "shouldShowGuide";
     public static String downloadVoicePackUrl = "http://kydc-1253381140.costj.myqcloud.com/english.zip";
 
-    static {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String beginTimeString = "2017-12-23 09:00:00";
-        try {
-            beginDate = simpleDateFormat.parse(beginTimeString);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-    }
 
 
 }

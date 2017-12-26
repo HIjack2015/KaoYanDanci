@@ -15,7 +15,6 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTextChanged;
-import butterknife.Unbinder;
 import cn.jk.kaoyandanci.InitApplication;
 import cn.jk.kaoyandanci.R;
 import cn.jk.kaoyandanci.model.Queries;
@@ -40,7 +39,7 @@ public class ChoosePlanDialog extends DialogFragment {
     MainActivity context;
     WordDao wordDao;
     //未掌握单词数目.
-    int unGraspCount = 0;
+    int unGraspCount =0;
     int learnPerDayRecord = -1;
     int needDayRecord = -1;
 
@@ -69,15 +68,18 @@ public class ChoosePlanDialog extends DialogFragment {
                 });
         ButterKnife.bind(this, view);
 
+
+
+
+
         boolean isCoreMode = Config.coreModeIsOn();
         boolean isEasyMode = Config.easyModeIsOn();
 
         Queries queries = Queries.getInstance(((InitApplication) getActivity().getApplication()).getDaoSession());
         unGraspCount = queries.getList(Constant.NEED_LEARN, isCoreMode, isEasyMode).size();
+
         int learnPerDay = Config.getPlanShouldLearn();
-
         learnPerDayTxt.setText(String.valueOf(learnPerDay));
-
         return builder.create();
     }
 
@@ -120,7 +122,7 @@ public class ChoosePlanDialog extends DialogFragment {
             ToastUtil.showShort(context, "学习天数不能小于0");
             return;
         }
-        int unGraspCount = wordDao.queryBuilder().where(WordDao.Properties.NeverShow.isNull()).listLazy().size();
+
         int learnPerDay = unGraspCount / needDay + 1;
 
         needDayRecord = needDay;

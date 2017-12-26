@@ -190,7 +190,7 @@ public class HomeFragment extends Fragment {
         Date now = new Date();
         long diff = Config.getExamTime().getTime() - now.getTime();
         if (diff < 0) {
-            ToastUtil.showShort(context, "就这样过去了,问你可后悔?");
+            Config.addExamDate();
             return;
         }
 
