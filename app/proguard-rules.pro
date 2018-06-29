@@ -21,9 +21,8 @@
 -dontpreverify                   # 混淆时是否做预校验
 -verbose                         # 混淆时是否记录日志
 -keepattributes *Annotation*     # 保持注解
--ignorewarning                   # 忽略警告
 -dontoptimize                    # 优化不优化输入的类文件
-
+-dontwarn
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*  # 混淆时所采用的算法
 
 #保持哪些类不被混淆

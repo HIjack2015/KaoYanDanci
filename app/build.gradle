@@ -6,7 +6,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
     }
 }
@@ -22,16 +22,7 @@ bugly {
     appKey = 'e25c40c6-1024-40c2-9ba5-cc56a1869bcf' // 注册时分配的App Key
 }
 android {
-    signingConfigs {
-        release {
-            keyAlias 'key0'
-            keyPassword 'key2015'
-            storeFile file('K:/android/androidKey/androidKey.jks')
-            storePassword 'key2015'
-        }
-    }
     compileSdkVersion 25
-    buildToolsVersion '25.0.3'
     defaultConfig {
         applicationId "cn.jk.kaoyandanci"
         minSdkVersion 16
@@ -70,7 +61,6 @@ android {
             //proguard-android.txt为默认的混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
-            signingConfig signingConfigs.release
 
         }
     }
