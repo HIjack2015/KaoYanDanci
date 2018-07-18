@@ -6,6 +6,7 @@ import java.util.List;
 
 import cn.jk.kaoyandanci.InitApplication;
 import cn.jk.kaoyandanci.util.Constant;
+import cn.jk.kaoyandanci.util.ToastUtil;
 
 /**
  * Created by Administrator on 2017/6/13.
@@ -69,7 +70,8 @@ public abstract class WordList {
     }
 
     public void currentKnown() {
-        if (currentPosition == words.size()) {
+        if (currentPosition >= words.size()) {
+            ToastUtil.showShort(context,"你背的单词太快太多了,APP出了些问题.你需要重新进一下应用.");
             return;
         }
         Word currentWord = words.get(currentPosition);

@@ -87,4 +87,10 @@
     <string name="hide_easy">hideEasy</string>
     <string name="easy_word_list">easy_word_list</string>
     <string name="title_activity_my_word_list">MyWordListActivity</string>
+    <string name="please_select_export_type">请选择要导出哪些单词.</string>
+    <string-array name="word_type">
+        <item>已掌握</item>
+        <item>已认识</item>
+        <item>不认识</item>
+    </string-array>
 </resources>

@@ -90,8 +90,8 @@ public class ChoosePlanDialog extends DialogFragment {
             return;
         }
         int learnPerDay = Integer.valueOf(learnPerDayStr.toString());
-        if (learnPerDay < 0) {
-            ToastUtil.showShort(context, "每天学习单词数目不能小于0");
+        if (learnPerDay <= 0) {
+            ToastUtil.showShort(context, "每天学习单词数目不能小于1");
             return;
         }
         if (learnPerDay == learnPerDayRecord) {

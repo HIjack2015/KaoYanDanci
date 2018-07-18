@@ -41,6 +41,7 @@
 
     <style name="oneOfThree">
         <item name="android:layout_weight">0.333333</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
 

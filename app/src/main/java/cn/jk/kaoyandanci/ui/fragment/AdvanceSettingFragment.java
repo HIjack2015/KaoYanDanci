@@ -10,11 +10,16 @@ import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
-import android.support.v13.app.ActivityCompat;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import org.greenrobot.greendao.query.QueryBuilder;
+import org.greenrobot.greendao.query.WhereCondition;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -23,6 +28,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.jk.kaoyandanci.R;
@@ -102,19 +108,38 @@ public class AdvanceSettingFragment extends PreferenceFragment {
 
                     return false;
                 }
-                ToastUtil.showShort(context, "正在将单词导出为到sdcard/kaoyandanci/word.txt,请稍候.");
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        exportWord();
-                        context.runOnUiThread(new Runnable() {
+
+
+                new MaterialDialog.Builder(context)
+                        .title(R.string.please_select_export_type)
+                        .items(R.array.word_type)
+                        .positiveText(R.string.confirm)
+                        .itemsCallbackMultiChoice(null, new MaterialDialog.ListCallbackMultiChoice() {
                             @Override
-                            public void run() {
-                                ToastUtil.showShort(context, "已经导出到sdcard/kaoyandanci/word.txt.");
+                            public boolean onSelection(MaterialDialog dialog, final Integer[] which, CharSequence[] text) {
+                                if (which.length == 0) {
+                                    ToastUtil.showShort(context, "你得至少选一项啊...");
+                                    return false;
+                                }
+                                ToastUtil.showShort(context, "正在将单词导出为到sdcard/kaoyandanci/word.txt,请稍候.");
+
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        exportWord(which);
+                                        context.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ToastUtil.showShort(context, "已经导出到sdcard/kaoyandanci/word.txt.");
+                                            }
+                                        });
+                                    }
+                                }).start();
+                                return true;
                             }
-                        });
-                    }
-                }).start();
+                        })
+                        .show();
+
 
 
                 return true;
@@ -156,10 +181,41 @@ public class AdvanceSettingFragment extends PreferenceFragment {
 
     /**
      * 导出单词至sdcard/kaoyandanci/word.txt.完成后提示
+     * @param which
+     * <item>已掌握</item>
+    <item>已认识</item>
+    <item>不认识</item
      */
-    private void exportWord() {
-        List<Word> learnedWords = context.getWordDao().queryBuilder().
-                where(WordDao.Properties.KnowTime.isNotNull()).list();
+    private void exportWord(Integer[] which) {
+
+        QueryBuilder<Word> queryBuilder = context.getWordDao().queryBuilder();
+        List<WhereCondition> whereConditions = new ArrayList<>();
+        for (int i = 0; i < which.length; i++) {
+            int value = which[i];
+
+            switch (value) {
+                case 0:
+                    whereConditions.add(WordDao.Properties.NeverShow.isNotNull());
+                    break;
+                case 1:
+                    whereConditions.add(WordDao.Properties.KnowTime.isNotNull());
+                    break;
+                case 2:
+                    whereConditions.add(WordDao.Properties.UnknownTime.isNotNull());
+                    break;
+            }
+        }
+            if (which.length == 1) {
+                queryBuilder.where(whereConditions.get(0));
+            } else if (which.length == 2) {
+                queryBuilder.whereOr(whereConditions.get(0), whereConditions.get(1));
+            } else {
+                queryBuilder.whereOr(whereConditions.get(0), whereConditions.get(1), whereConditions.get(2));
+            }
+
+
+        List<Word> learnedWords =
+                queryBuilder.list();
         StringBuilder sb = new StringBuilder();
         sb.append("英文 中文 已经掌握 认识次数 不认识次数\n");
         for (Word word : learnedWords) {
@@ -267,7 +323,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
          */
         protected void onProgressUpdate(String... progress) {
             if ("exists".equals(progress[0])) {
-                ToastUtil.showShort(getContext(), getContext().getString(R.string.already_have_pack));
+                ToastUtil.showShort(getActivity(), getActivity().getString(R.string.already_have_pack));
                 downloadDialog.dismiss();
             } else {
                 downloadDialog.setProgress(Integer.parseInt(progress[0]));

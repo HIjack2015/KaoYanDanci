@@ -6,6 +6,7 @@ import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
@@ -31,7 +32,7 @@ public class DisplaySettingActivity extends BaseActivity implements ColorChooser
             displaySettingFragment = new SettingsFragment();
             getFragmentManager().beginTransaction().replace(R.id.content_frames, displaySettingFragment).commit();
         } else {
-            displaySettingFragment = (SettingsFragment) getFragmentManager().findFragmentById(R.id.content_frames);
+            displaySettingFragment = (SettingsFragment) (getFragmentManager().findFragmentById(R.id.content_frames));
 
         }
         getSupportActionBar().setTitle("主题设置");
@@ -110,7 +111,7 @@ public class DisplaySettingActivity extends BaseActivity implements ColorChooser
                             .subscribe(new Consumer<Integer>() {
                                 @Override
                                 public void accept(@NonNull Integer color) throws Exception {
-                                    new ColorChooserDialog.Builder(context, R.string.primary_color).backButton(R.string.back).cancelButton(R.string.cancel).doneButton(R.string.done).customButton(R.string.custom).presetsButton(R.string.back).preselect(color).show();
+                                    new ColorChooserDialog.Builder(context, R.string.primary_color).backButton(R.string.back).cancelButton(R.string.cancel).doneButton(R.string.done).customButton(R.string.custom).presetsButton(R.string.back).preselect(color).show((FragmentActivity) getActivity());
                                 }
                             });
                     return false;
@@ -126,7 +127,7 @@ public class DisplaySettingActivity extends BaseActivity implements ColorChooser
                             .subscribe(new Consumer<Integer>() {
                                 @Override
                                 public void accept(@NonNull Integer color) throws Exception {
-                                    new ColorChooserDialog.Builder(context, R.string.accent_color).backButton(R.string.back).cancelButton(R.string.cancel).doneButton(R.string.done).customButton(R.string.custom).presetsButton(R.string.back).preselect(color).show();
+                                    new ColorChooserDialog.Builder(context, R.string.accent_color).backButton(R.string.back).cancelButton(R.string.cancel).doneButton(R.string.done).customButton(R.string.custom).presetsButton(R.string.back).preselect(color).show((FragmentActivity) getActivity());
                                 }
                             });
                     return false;
@@ -142,7 +143,7 @@ public class DisplaySettingActivity extends BaseActivity implements ColorChooser
                             .subscribe(new Consumer<Integer>() {
                                 @Override
                                 public void accept(@NonNull Integer color) throws Exception {
-                                    new ColorChooserDialog.Builder(context, R.string.primary_text_color).backButton(R.string.back).cancelButton(R.string.cancel).doneButton(R.string.done).customButton(R.string.custom).presetsButton(R.string.back).preselect(color).show();
+                                    new ColorChooserDialog.Builder(context, R.string.primary_text_color).backButton(R.string.back).cancelButton(R.string.cancel).doneButton(R.string.done).customButton(R.string.custom).presetsButton(R.string.back).preselect(color).show((FragmentActivity) getActivity());
                                 }
                             });
                     return false;
@@ -158,7 +159,7 @@ public class DisplaySettingActivity extends BaseActivity implements ColorChooser
                             .subscribe(new Consumer<Integer>() {
                                 @Override
                                 public void accept(@NonNull Integer color) throws Exception {
-                                    new ColorChooserDialog.Builder(context, R.string.secondary_text_color).backButton(R.string.back).cancelButton(R.string.cancel).doneButton(R.string.done).customButton(R.string.custom).presetsButton(R.string.back).preselect(color).show();
+                                    new ColorChooserDialog.Builder(context, R.string.secondary_text_color).backButton(R.string.back).cancelButton(R.string.cancel).doneButton(R.string.done).customButton(R.string.custom).presetsButton(R.string.back).preselect(color).show((FragmentActivity) getActivity());
                                 }
                             });
                     return false;

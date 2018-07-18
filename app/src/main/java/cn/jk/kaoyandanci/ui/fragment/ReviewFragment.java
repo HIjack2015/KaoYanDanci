@@ -6,13 +6,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import org.greenrobot.greendao.query.WhereCondition;
 
@@ -20,7 +27,9 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +52,7 @@ import cn.jk.kaoyandanci.util.ToastUtil;
 public class ReviewFragment extends Fragment {
 
     @BindView(R.id.calendarView)
-    CalendarView calendarView;
+    MaterialCalendarView calendarView;
     @BindView(R.id.startReviewBtn)
     Button startReviewBtn;
     Calendar calendar = Calendar.getInstance();
@@ -86,14 +95,19 @@ public class ReviewFragment extends Fragment {
         context = getActivity().getApplicationContext();
         //TODO 这里有一个bug.
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                calendar = new GregorianCalendar(year, month, dayOfMonth);
+            public void onDateSelected(@NonNull MaterialCalendarView materialCalendarView, @NonNull CalendarDay calendarDay, boolean b) {
+                calendar = new GregorianCalendar(calendarDay.getYear(), calendarDay.getMonth(), calendarDay.getDay());
                 setCount();
             }
         });
-
+        calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
+            @Override
+            public void onMonthChanged(MaterialCalendarView materialCalendarView, CalendarDay calendarDay) {
+                highLightMonth(calendarDay.getYear(), calendarDay.getMonth());
+            }
+        });
 
         startReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +130,8 @@ public class ReviewFragment extends Fragment {
             }
         });
         setCount();
-        calendarView.setDate(Calendar.getInstance().getTime().getTime());
+        calendarView.setSelectedDate(Calendar.getInstance().getTime());
+        highLightMonth(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
         return view;
     }
 
@@ -208,7 +223,46 @@ public class ReviewFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        calendarView.setDate(Calendar.getInstance().getTime().getTime());
 
+
+    }
+
+    void highLightMonth(int year, int month) {
+        Date firstDayOfMonth = DayUtil.getFirstDayOfMonth(year, month);
+        Date lastDayOfMonth = DayUtil.getLastDayOfMonth(year, month);
+
+        Set<CalendarDay> days = new HashSet<>();
+
+
+        List<Word> words = wordDao.queryBuilder().where(WordDao.Properties.LastLearnTime.gt(firstDayOfMonth), WordDao.Properties.LastLearnTime.lt(lastDayOfMonth)).listLazy();
+        for (Word word : words) {
+            Date learnTime = word.getLastLearnTime();//TODO 先这样写,要是太慢的话就新建一个表.
+            days.add(CalendarDay.from(learnTime));
+        }
+
+        calendarView.addDecorator(new CalendarViewDecorator(getActivity(), days));
+
+
+    }
+
+    class CalendarViewDecorator implements DayViewDecorator {
+        Context mContext;
+        Set<CalendarDay> mDays;
+
+        public CalendarViewDecorator(Context context, Set<CalendarDay> days) {
+            mContext = context;
+            mDays = days;
+        }
+
+
+        @Override
+        public boolean shouldDecorate(CalendarDay calendarDay) {
+            return mDays.contains(calendarDay);
+        }
+
+        @Override
+        public void decorate(DayViewFacade dayViewFacade) {
+            dayViewFacade.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.blue_star));
+        }
     }
 }
