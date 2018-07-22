@@ -105,7 +105,7 @@ dependencies {
     compile "com.afollestad:aesthetic:0.4.7"
     compile "com.danikula:videocache:2.7.0"
     compile "com.android.volley:volley:1.0.0"
-
+    compile 'com.tencent.qcloud:cosxml:5.4.4'
     compile "com.github.prolificinteractive:material-calendarview:1.6.0"
     testCompile "junit:junit:4.12"
     testCompile "org.json:json:20140107"

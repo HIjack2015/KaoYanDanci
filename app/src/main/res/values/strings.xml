@@ -88,6 +88,15 @@
     <string name="easy_word_list">easy_word_list</string>
     <string name="title_activity_my_word_list">MyWordListActivity</string>
     <string name="please_select_export_type">请选择要导出哪些单词.</string>
+    <string name="back_to_server">back_to_server</string>
+    <string name="restore_record">restore_record</string>
+    <string name="please_input_record_name_to_backup">请选择一个独一无二名字,作为备份和恢复的依据.</string>
+    <string name="sure_to_unique">一定要独一无二哦</string>
+    <string name="input_prefill"></string>
+    <string name="confirm_to_overwrite">这个名字已经对应了一条记录,是否将这条记录覆盖掉?</string>
+    <string name="please_input_record_name_to_restore">请输入记录名来恢复你的学习记录(这将覆盖掉你的本地学习记录!!!)</string>
+    <string name="will_clear_local">这将覆盖您本地的学习记录!!!</string>
+    <string name="please_wait">请耐心等待</string>
     <string-array name="word_type">
         <item>已掌握</item>
         <item>已认识</item>

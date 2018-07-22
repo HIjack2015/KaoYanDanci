@@ -31,5 +31,10 @@
     <Preference
         android:key="@string/download_voice_pack"
         android:title="下载语音包" />
-
+    <Preference
+        android:key="@string/back_to_server"
+        android:title="备份学习记录到云端"/>
+    <Preference
+        android:key="@string/restore_record"
+        android:title="从云端恢复学习记录"/>
 </PreferenceScreen>

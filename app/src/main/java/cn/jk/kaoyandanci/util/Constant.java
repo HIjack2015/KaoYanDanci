@@ -1,8 +1,5 @@
 package cn.jk.kaoyandanci.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * Created by Administrator on 2017/4/13.
  */

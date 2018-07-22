@@ -2,6 +2,7 @@ package cn.jk.kaoyandanci.ui.fragment;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -10,13 +11,19 @@ import android.os.Environment;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 import org.greenrobot.greendao.query.WhereCondition;
@@ -26,12 +33,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jk.kaoyandanci.InitApplication;
 import cn.jk.kaoyandanci.R;
+import cn.jk.kaoyandanci.model.DaoSession;
 import cn.jk.kaoyandanci.model.Word;
 import cn.jk.kaoyandanci.model.WordDao;
 import cn.jk.kaoyandanci.ui.activity.AdvanceSettingActivity;
@@ -42,6 +52,7 @@ import cn.jk.kaoyandanci.util.Constant;
 import cn.jk.kaoyandanci.util.FileUtil;
 import cn.jk.kaoyandanci.util.MD5;
 import cn.jk.kaoyandanci.util.NetWordUtil;
+import cn.jk.kaoyandanci.util.TencentCloudService;
 import cn.jk.kaoyandanci.util.ToastUtil;
 
 import static cn.jk.kaoyandanci.util.Constant.WORD_LIST_LBL;
@@ -53,7 +64,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
 
     DownloadDialog downloadDialog;
     AdvanceSettingActivity context;
-
+    MaterialDialog loadingDialog;
     public AdvanceSettingFragment() {
         // Required empty public constructor
     }
@@ -64,6 +75,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
 
         addPreferencesFromResource(R.xml.advance_setting);
         context = (AdvanceSettingActivity) getActivity();
+        loadingDialog = new MaterialDialog.Builder(getActivity()).content(R.string.please_wait).build();
     }
 
     @Override
@@ -121,6 +133,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
                                     ToastUtil.showShort(context, "你得至少选一项啊...");
                                     return false;
                                 }
+
                                 ToastUtil.showShort(context, "正在将单词导出为到sdcard/kaoyandanci/word.txt,请稍候.");
 
                                 new Thread(new Runnable() {
@@ -139,7 +152,6 @@ public class AdvanceSettingFragment extends PreferenceFragment {
                             }
                         })
                         .show();
-
 
 
                 return true;
@@ -176,15 +188,242 @@ public class AdvanceSettingFragment extends PreferenceFragment {
                 return false;
             }
         });
+        Preference backupPref = findPreference(getString(R.string.back_to_server));
+        backupPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                new MaterialDialog.Builder(context)
+                        .title(R.string.please_input_record_name_to_backup).
+                        inputType(InputType.TYPE_CLASS_TEXT)
+                        .input(R.string.sure_to_unique, R.string.input_prefill, new MaterialDialog.InputCallback() {
+                            @Override
+                            public void onInput(MaterialDialog dialog, CharSequence input) {
+                                backUpByName(input.toString(), true);
+                            }
+                        })
+                        .positiveText(R.string.confirm)
+                        .negativeText(R.string.cancel)
+                        .show();
+
+                return false;
+            }
+        });
+        Preference restorePref = findPreference(getString(R.string.restore_record));
+        restorePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                new MaterialDialog.Builder(context)
+                        .title(R.string.please_input_record_name_to_restore).
+                        inputType(InputType.TYPE_CLASS_TEXT)
+                        .input(R.string.will_clear_local, R.string.input_prefill, new MaterialDialog.InputCallback() {
+                            @Override
+                            public void onInput(MaterialDialog dialog, CharSequence input) {
+                                restoreByName(input.toString());
+                            }
+                        })
+                        .positiveText(R.string.confirm)
+                        .negativeText(R.string.cancel)
+                        .show();
+
+                return false;
+            }
+        });
+    }
+
+    private void restoreByName(final String recordName) {
+        if (TextUtils.isEmpty(recordName)) {
+            ToastUtil.showShort(context, "名字不能为空");
+            return;
+        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final boolean exist = TencentCloudService.checkFileExist(recordName);
+
+                context.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (exist) {
+                            restoreToLocal(recordName);
+                        } else {
+                            ToastUtil.showShort(context, "我没有找到这个名字对应的备份记录...");
+                        }
+
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void restoreToLocal(final String recordName) {
+        final String savePath = context.getFilesDir().getAbsolutePath();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final String result = TencentCloudService.downloadFile(recordName, savePath, context);
+
+                context.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (result.equals("下载成功")) {
+                            restoreFromLocal(recordName);
+                        } else {
+                            ToastUtil.showShort(context, result);
+                        }
+
+                    }
+                });
+            }
+        }).start();
+
+    }
+
+    private void restoreFromLocal(String recordName) {
+
+        try {
+            String content = FileUtil.getStringFromFile(context.getFilesDir() + "/" + recordName);
+            Type listType = new TypeToken<List<Word>>() {
+            }.getType();
+
+            List<Word> words = new Gson().fromJson(content, listType);
+            //     List<Word> words = new ArrayList<>();
+            DaoSession daoSession = ((InitApplication) context.getApplicationContext()).getDaoSession();
+            WordDao wordDao = daoSession.getWordDao();
+//            for (WordRecord wordRecord :
+//                    wordRecords) {
+//                QueryBuilder<Word> queryBuilder = context.getWordDao().queryBuilder();
+//                List<Word> localWords = queryBuilder.where(WordDao.Properties.English.eq(wordRecord.getEnglish())).list();
+//            }
+            wordDao.updateInTx(words);
+
+            context.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    Constant.DATA_CHANGED = true;
+                    ToastUtil.showShort(context, "恢复成功");
+                }
+            });
+        } catch (final Exception e) {
+
+            context.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    ToastUtil.showShort(context, e.getMessage());
+                }
+            });
+        }
+    }
+
+    /**
+     * 检查参数并调用真正的备份 ,TODO 这个写的太乱了,我需要rx java.
+     *
+     * @param recordName
+     */
+    private void backUpByName(final String recordName, final boolean checkExist) {
+        if (TextUtils.isEmpty(recordName)) {
+            ToastUtil.showShort(context, "名字不能为空");
+            return;
+        }
+        loadingDialog.setTitle("正在备份,请稍候...");
+        loadingDialog.show();
+        if (checkExist) {
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    final boolean exist = TencentCloudService.checkFileExist(recordName);
+
+                    context.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (exist) {
+                                loadingDialog.dismiss();
+                                new MaterialDialog.Builder(context)
+                                        .title(R.string.confirm_to_overwrite).positiveText(R.string.confirm)
+                                        .negativeText(R.string.cancel).onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                        backUpByName(recordName, false);
+                                    }
+                                })
+                                        .show();
+
+                            } else {
+                                backUpByName(recordName, false);
+                            }
+                        }
+                    });
+                }
+            }).start();
+            return;
+
+        }
+
+
+        new
+
+                Thread(new Runnable() {
+            @Override
+            public void run() {
+                final String result = backRecordToServer(recordName);
+                context.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showShort(context, result);
+                        loadingDialog.dismiss();
+
+                    }
+                });
+            }
+        }).
+
+                start();
+
+
+    }
+
+    /**
+     * 将学习记录转成json文件存起来,然后上传到云端.
+     *
+     * @param recordName
+     * @return 要提示给用户的消息.
+     */
+    private String backRecordToServer(String recordName) {
+        QueryBuilder<Word> queryBuilder = context.getWordDao().queryBuilder();
+        List<Word> words = queryBuilder.where(WordDao.Properties.LastLearnTime.isNotNull()).list();
+        //   List<WordRecord> wordRecords = new ArrayList<>();
+//        for (Word word : words) {
+//            wordRecords.add(new WordRecord(word));
+//        }
+        String wordRecordJsonStr = new Gson().toJson(words);
+        File file = new File(context.getFilesDir(), recordName);
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = context.openFileOutput(recordName, Context.MODE_PRIVATE);
+            outputStream.write(wordRecordJsonStr.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+        return TencentCloudService.uploadFile(recordName, file.getAbsolutePath(), context);
+
+
     }
 
 
     /**
      * 导出单词至sdcard/kaoyandanci/word.txt.完成后提示
-     * @param which
-     * <item>已掌握</item>
-    <item>已认识</item>
-    <item>不认识</item
+     *
+     * @param which <item>已掌握</item>
+     *              <item>已认识</item>
+     *              <item>不认识</item
      */
     private void exportWord(Integer[] which) {
 

@@ -129,14 +129,14 @@ public class ReviewFragment extends Fragment {
                 return false;
             }
         });
-        setCount();
-        calendarView.setSelectedDate(Calendar.getInstance().getTime());
-        highLightMonth(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
+        refresh();
         return view;
     }
 
     public void refresh() {
         setCount();
+        calendarView.setSelectedDate(Calendar.getInstance().getTime());
+        highLightMonth(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
     }
 
 
@@ -223,7 +223,6 @@ public class ReviewFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
 
     }
 

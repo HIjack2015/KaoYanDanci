@@ -18,7 +18,7 @@ public class AdvanceSettingActivity extends BaseActivity {
             fragment = new AdvanceSettingFragment();
             getFragmentManager().beginTransaction().replace(R.id.content_frames, fragment).commit();
         } else {
-            fragment = (AdvanceSettingFragment) getFragmentManager().findFragmentById(R.id.content_frames);
+            fragment = (AdvanceSettingFragment) (getFragmentManager().findFragmentById(R.id.content_frames));
 
         }
         getSupportActionBar().setTitle("高级设置");
