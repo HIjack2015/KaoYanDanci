@@ -1,0 +1,4 @@
+file=D:\project\demo\KaoYanDanci\app\build\outputs\mapping\release\mapping.txt
+sha1=d981cf139a0367b7311dcc830a1ef71aa964c187
+appId=11cc1a2754
+

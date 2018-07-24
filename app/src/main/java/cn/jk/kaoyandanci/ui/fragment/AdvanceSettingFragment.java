@@ -45,6 +45,7 @@ import cn.jk.kaoyandanci.model.DaoSession;
 import cn.jk.kaoyandanci.model.Word;
 import cn.jk.kaoyandanci.model.WordDao;
 import cn.jk.kaoyandanci.ui.activity.AdvanceSettingActivity;
+import cn.jk.kaoyandanci.ui.activity.MainActivity;
 import cn.jk.kaoyandanci.ui.activity.WordListActivity;
 import cn.jk.kaoyandanci.ui.dialog.DownloadDialog;
 import cn.jk.kaoyandanci.ui.dialog.PleaseDonateDialog;
@@ -85,7 +86,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         pieWordPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Constant.DATA_CHANGED = true;
+                MainActivity.DATA_CHANGED=true;
                 return true;
             }
         });
@@ -93,7 +94,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         coreModePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                Constant.DATA_CHANGED = true;
+                MainActivity.DATA_CHANGED=true;
                 return true;
             }
         });
@@ -101,7 +102,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         easyModePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
-                Constant.DATA_CHANGED = true;
+                MainActivity.DATA_CHANGED=true;
                 return true;
             }
         });
@@ -302,7 +303,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
 
                 @Override
                 public void run() {
-                    Constant.DATA_CHANGED = true;
+                    MainActivity.DATA_CHANGED=true;
                     ToastUtil.showShort(context, "恢复成功");
                 }
             });

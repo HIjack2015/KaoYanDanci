@@ -77,6 +77,7 @@ public class MyWordListActivity extends BaseActivity {
         wordRcy.setHasFixedSize(true);
         wordRcy.setLayoutManager(new LinearLayoutManager(context));
         wordRcy.setAdapter(wordListAdapter);
+
         wordListAdapter.notifyDataSetChanged();
         LinearLayoutManager layoutManager = ((LinearLayoutManager) wordRcy.getLayoutManager());
         layoutManager.scrollToPosition(currentPosition);

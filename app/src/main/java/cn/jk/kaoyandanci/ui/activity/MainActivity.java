@@ -28,6 +28,7 @@ import cn.jk.kaoyandanci.util.Constant;
 
 public class MainActivity extends BaseActivity {
 
+    public static boolean DATA_CHANGED = false;
     @BindView(R.id.main_content)
     FrameLayout mainContent;
     @BindView(R.id.navigation)
@@ -128,7 +129,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (Constant.DATA_CHANGED) {
+        if (DATA_CHANGED) {
             homeFragment.refresh();
             reviewFragment.refresh();
         }

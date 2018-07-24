@@ -78,9 +78,9 @@ public class HomeFragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            if (Constant.DATA_CHANGED) {
+            if (MainActivity.DATA_CHANGED) {
                 drawPi();
-                Constant.DATA_CHANGED = false;
+                MainActivity.DATA_CHANGED = false;
             }
         }
     }

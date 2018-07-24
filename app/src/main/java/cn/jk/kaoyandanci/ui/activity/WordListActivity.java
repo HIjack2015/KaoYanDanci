@@ -23,8 +23,15 @@ public class WordListActivity extends BaseActivity {
     RecyclerView wordRcy;
 
     boolean showChinese = Config.getShowChinese();
+    boolean showEdt = false;
+
     ArrayList<Word> words;
     int currentPosition = 0;
+
+    WordListAdapter wordListAdapter;
+    LinearLayoutManager layoutManager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,7 @@ public class WordListActivity extends BaseActivity {
         String label = getIntent().getStringExtra(Constant.WORD_LIST_LBL);
         boolean coreMode = Config.coreModeIsOn();
         boolean easyMode = Config.easyModeIsOn();
+
         getSupportActionBar().setTitle(label);
         Queries queries = Queries.getInstance(daoSession);
         String wordType = label.replaceAll("\\d", "");
@@ -44,13 +52,17 @@ public class WordListActivity extends BaseActivity {
     }
 
     private void showWord() {
-        WordListAdapter wordListAdapter = new WordListAdapter(words, this);
+        if (wordListAdapter == null) {
+            wordListAdapter = new WordListAdapter(words, this);
+            wordRcy.setHasFixedSize(true);
+            layoutManager = new LinearLayoutManager(context);
+            wordRcy.setLayoutManager(layoutManager);
+            wordRcy.setAdapter(wordListAdapter);
+        }
+
+        wordListAdapter.setShowEdt(showEdt);
         wordListAdapter.setShowChinese(showChinese);
-        wordRcy.setHasFixedSize(true);
-        wordRcy.setLayoutManager(new LinearLayoutManager(context));
-        wordRcy.setAdapter(wordListAdapter);
         wordListAdapter.notifyDataSetChanged();
-        LinearLayoutManager layoutManager = ((LinearLayoutManager) wordRcy.getLayoutManager());
         layoutManager.scrollToPosition(currentPosition);
     }
 
@@ -68,7 +80,7 @@ public class WordListActivity extends BaseActivity {
         switch (item.getItemId()) {
 
             case R.id.showChineseChk:
-                LinearLayoutManager layoutManager = ((LinearLayoutManager) wordRcy.getLayoutManager());
+
                 currentPosition = layoutManager.findFirstVisibleItemPosition();
 
                 item.setChecked(!item.isChecked());
@@ -77,8 +89,27 @@ public class WordListActivity extends BaseActivity {
                 showWord();
 
                 return true;
+            case R.id.showEditChk:
+                item.setChecked(!item.isChecked());
+                showEdt = item.isChecked();
+                showWord();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onPause() {
+        wordRcy.stopScroll();  //这里有一个bug...就是在scroll的时候pause aesthetic就会崩溃.
+        super.onPause();
+    }
+
+    public void neverShow(Word word) {
+        if (word.getKnowTime() == null || word.getKnowTime() == 0) {
+            word.setKnowTime(1);
+        }
+        word.setNeverShow(1);
+        wordDao.update(word);
     }
 }

@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.List;
 
 import cn.jk.kaoyandanci.InitApplication;
-import cn.jk.kaoyandanci.util.Constant;
+import cn.jk.kaoyandanci.ui.activity.MainActivity;
 import cn.jk.kaoyandanci.util.ToastUtil;
 
 /**
@@ -82,7 +82,7 @@ public abstract class WordList {
             currentWord.setKnowTime(currentWord.getKnowTime() + 1);
         }
         wordDao.update(currentWord);
-        Constant.DATA_CHANGED = true;
+        MainActivity.DATA_CHANGED = true;
 
     }
 
@@ -94,7 +94,7 @@ public abstract class WordList {
             currentWord.setUnknownTime(currentWord.getUnknownTime() + 1);
         }
         wordDao.update(currentWord);
-        Constant.DATA_CHANGED = true;
+        MainActivity.DATA_CHANGED = true;
     }
 
     public void currentNeverShow() {
@@ -104,7 +104,7 @@ public abstract class WordList {
         }
         currentWord.setNeverShow(1);
         wordDao.update(currentWord);
-        Constant.DATA_CHANGED = true;
+        MainActivity.DATA_CHANGED = true;
     }
 
     /**

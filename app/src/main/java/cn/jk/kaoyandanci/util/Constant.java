@@ -63,7 +63,7 @@ public class Constant {
     public static final String NEED_LEARN = "NEED_LEARN";
 
     public static String FIRST_OPEN = "firstOpen";
-    public static boolean DATA_CHANGED = false;
+
     public static int nextDelay = 1500;
     public static int allWordCount = 5492;
     public static int PLAN_LEARN_NO = 10;

@@ -61,6 +61,7 @@
     </style>
 
     <style name="aboutTextStyle">
+        <item name="android:background">?android:selectableItemBackground</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:textSize">18sp</item>
         <item name="android:ellipsize">marquee</item>
