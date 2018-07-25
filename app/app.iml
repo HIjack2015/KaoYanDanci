@@ -122,6 +122,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test.espresso:espresso-idling-resource-2.2.2" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:common:1.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.jakewharton:butterknife-8.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.hotchemi:permissionsdispatcher-annotation:3.3.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-android:1.7.21@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support.test.espresso:espresso-core-2.2.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:recyclerview-v7-27.1.1" level="project" />
@@ -164,6 +165,7 @@
     <orderEntry type="library" name="Gradle: com.github.prolificinteractive:material-calendarview-1.6.0" level="project" />
     <orderEntry type="library" name="Gradle: com.afollestad.material-dialogs:commons-0.9.6.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.findbugs:jsr305:2.0.1@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.hotchemi:permissionsdispatcher-3.3.1" level="project" />
     <orderEntry type="library" name="Gradle: io.reactivex.rxjava2:rxandroid-2.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:3.6.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support.constraint:constraint-layout-1.0.2" level="project" />
@@ -178,5 +180,6 @@
     <orderEntry type="library" name="Gradle: com.tencent.qcloud:cosxml-5.4.4" level="project" />
     <orderEntry type="library" name="Gradle: com.afollestad:aesthetic-0.4.7" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.21@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:support-v13-27.1.1" level="project" />
   </component>
 </module>

@@ -1,10 +1,8 @@
 package cn.jk.kaoyandanci.ui.fragment;
 
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,9 +10,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -61,6 +57,7 @@ import static cn.jk.kaoyandanci.util.Constant.WORD_LIST_LBL;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class AdvanceSettingFragment extends PreferenceFragment {
 
     DownloadDialog downloadDialog;
@@ -111,17 +108,6 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         exportWordPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if (ContextCompat.checkSelfPermission(context,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 10
-                    );
-                    ToastUtil.showShort(context, "请在授权后再试");
-
-                    return false;
-                }
-
 
                 new MaterialDialog.Builder(context)
                         .title(R.string.please_select_export_type)
@@ -166,15 +152,6 @@ public class AdvanceSettingFragment extends PreferenceFragment {
                     ToastUtil.showShort(getActivity(), "请先联网");
                     return false;
                 }
-                if (ContextCompat.checkSelfPermission(context,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-                    //有时间写onActivity result.反正接下来也有dialog.
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 10
-                    );
-
-                }
                 new PleaseDonateDialog().show(getFragmentManager(), "pleaseDonate");
                 return false;
             }
@@ -193,6 +170,10 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         backupPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
+                if (!NetWordUtil.isOnline(getActivity())) {
+                    ToastUtil.showShort(getActivity(), "请先联网");
+                    return false;
+                }
                 new MaterialDialog.Builder(context)
                         .title(R.string.please_input_record_name_to_backup).
                         inputType(InputType.TYPE_CLASS_TEXT)
@@ -213,6 +194,10 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         restorePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
+                if (!NetWordUtil.isOnline(getActivity())) {
+                    ToastUtil.showShort(getActivity(), "请先联网");
+                    return false;
+                }
                 new MaterialDialog.Builder(context)
                         .title(R.string.please_input_record_name_to_restore).
                         inputType(InputType.TYPE_CLASS_TEXT)
@@ -231,12 +216,12 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         });
     }
 
-    private void restoreByName(final String recordName) {
+    void restoreByName(final String recordName) {
         if (TextUtils.isEmpty(recordName)) {
-            ToastUtil.showShort(context, "名字不能为空");
+            showResultMsg("名字不能为空");
             return;
         }
-
+        loadingDialog.show();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -248,7 +233,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
                         if (exist) {
                             restoreToLocal(recordName);
                         } else {
-                            ToastUtil.showShort(context, "我没有找到这个名字对应的备份记录...");
+                            showResultMsg("我没有找到这个名字对应的备份记录...");
                         }
 
                     }
@@ -269,9 +254,10 @@ public class AdvanceSettingFragment extends PreferenceFragment {
                     @Override
                     public void run() {
                         if (result.equals("下载成功")) {
+
                             restoreFromLocal(recordName);
                         } else {
-                            ToastUtil.showShort(context, result);
+                            showResultMsg(result);
                         }
 
                     }
@@ -289,34 +275,37 @@ public class AdvanceSettingFragment extends PreferenceFragment {
             }.getType();
 
             List<Word> words = new Gson().fromJson(content, listType);
-            //     List<Word> words = new ArrayList<>();
+
             DaoSession daoSession = ((InitApplication) context.getApplicationContext()).getDaoSession();
             WordDao wordDao = daoSession.getWordDao();
-//            for (WordRecord wordRecord :
-//                    wordRecords) {
-//                QueryBuilder<Word> queryBuilder = context.getWordDao().queryBuilder();
-//                List<Word> localWords = queryBuilder.where(WordDao.Properties.English.eq(wordRecord.getEnglish())).list();
-//            }
+
             wordDao.updateInTx(words);
 
             context.runOnUiThread(new Runnable() {
 
                 @Override
                 public void run() {
+                    showResultMsg("恢复成功");
                     MainActivity.DATA_CHANGED=true;
-                    ToastUtil.showShort(context, "恢复成功");
+
                 }
             });
         } catch (final Exception e) {
 
-            context.runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    ToastUtil.showShort(context, e.getMessage());
-                }
-            });
+            showResultMsg(e.getMessage());
         }
+    }
+
+    private void showResultMsg(final String msg) {
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismiss();
+                ToastUtil.showShort(context, msg);
+            }
+        });
+
+
     }
 
     /**
@@ -324,7 +313,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
      *
      * @param recordName
      */
-    private void backUpByName(final String recordName, final boolean checkExist) {
+    void backUpByName(final String recordName, final boolean checkExist) {
         if (TextUtils.isEmpty(recordName)) {
             ToastUtil.showShort(context, "名字不能为空");
             return;
@@ -426,7 +415,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
      *              <item>已认识</item>
      *              <item>不认识</item
      */
-    private void exportWord(Integer[] which) {
+    void exportWord(Integer[] which) {
 
         QueryBuilder<Word> queryBuilder = context.getWordDao().queryBuilder();
         List<WhereCondition> whereConditions = new ArrayList<>();
@@ -470,13 +459,8 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         FileUtil.saveString(context, sb.toString(), filePath);
     }
 
+
     public void startDownload() {
-        if (ContextCompat.checkSelfPermission(context,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ToastUtil.showShort(context, "请给我存储权限");
-            return;
-        }
         downloadDialog = new DownloadDialog();
         downloadDialog.show(getFragmentManager(), "downloadProgressDialog");
 

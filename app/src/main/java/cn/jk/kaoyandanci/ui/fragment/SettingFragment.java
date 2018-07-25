@@ -12,8 +12,8 @@ import com.afollestad.aesthetic.Aesthetic;
 
 import cn.jk.kaoyandanci.R;
 import cn.jk.kaoyandanci.ui.activity.AboutActivity;
-import cn.jk.kaoyandanci.ui.activity.AdvanceSettingActivity;
 import cn.jk.kaoyandanci.ui.activity.DisplaySettingActivity;
+import cn.jk.kaoyandanci.ui.activity.MainActivity;
 import cn.jk.kaoyandanci.ui.activity.MyWordListActivity;
 import cn.jk.kaoyandanci.ui.dialog.ChoosePlanDialog;
 import cn.jk.kaoyandanci.util.Constant;
@@ -102,7 +102,7 @@ public class SettingFragment extends PreferenceFragment {
         advanceSettingPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                startActivity(new Intent(getActivity(), AdvanceSettingActivity.class));
+                ((MainActivity) getActivity()).startAdvancedSettingActivityWithPermissionCheck();
                 return false;
             }
         });

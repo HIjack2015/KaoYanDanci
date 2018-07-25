@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.jk.kaoyandanci.R;
 import cn.jk.kaoyandanci.model.Word;
+import cn.jk.kaoyandanci.model.WordState;
 import cn.jk.kaoyandanci.ui.activity.MainActivity;
 import cn.jk.kaoyandanci.ui.activity.WordDetailActivity;
 import cn.jk.kaoyandanci.ui.activity.WordListActivity;
@@ -57,7 +59,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Word word = wordList.get(position);
         holder.englishTxt.setText(word.getEnglish());
         holder.chineseTxt.setText(word.getChinese());
@@ -68,23 +70,41 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
             holder.chineseTxt.setText("");
         }
         if (showEdt) {
+            if (WordState.isNeverShow(word)) {
+                holder.deleteBtn.setImageResource(R.drawable.ic_restore_black_24dp);
+            } else {
+                holder.deleteBtn.setImageResource(R.drawable.ic_delete_blue_24dp);
+            }
+
+
             holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    wordList.remove(position);    //TODO 如果已经掌握呢????
 
-                    ((WordListActivity) context).neverShow(word);
+                    wordList.remove(position);
 
+                    ((WordListActivity) context).reverseNeverShow(word);
                     notifyItemRemoved(position);
                     notifyItemRangeChanged(position, wordList.size());
                     MainActivity.DATA_CHANGED = true;
                 }
             });
 
+            if (WordState.isCollect(word)) {
+                holder.collectBtn.setImageResource(R.drawable.blue_star);
+            } else {
+                holder.collectBtn.setImageResource(R.drawable.ic_star_border_blue_24dp);
+            }
+
             holder.collectBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                       //TODO 更改星星颜色.
+                    ((WordListActivity) context).reverseCollect(word);
+                    if (WordState.isCollect(word)) {
+                        holder.collectBtn.setImageResource(R.drawable.blue_star);
+                    } else {
+                        holder.collectBtn.setImageResource(R.drawable.ic_star_border_blue_24dp);
+                    }
                 }
             });
             holder.deleteBtn.setVisibility(View.VISIBLE);
@@ -139,9 +159,9 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
         @BindView(R.id.chineseTxt)
         TextView chineseTxt;
         @BindView(R.id.delete_btn)
-        View deleteBtn;
+        ImageView deleteBtn;
         @BindView(R.id.collect_btn)
-        View collectBtn;
+        ImageView collectBtn;
 
 
         public ViewHolder(View itemView) {

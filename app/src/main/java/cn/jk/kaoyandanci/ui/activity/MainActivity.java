@@ -1,6 +1,7 @@
 package cn.jk.kaoyandanci.ui.activity;
 
 
+import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +10,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.afollestad.aesthetic.Aesthetic;
 import com.afollestad.aesthetic.BottomNavBgMode;
 import com.afollestad.aesthetic.BottomNavIconTextMode;
 import com.afollestad.aesthetic.NavigationViewMode;
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,8 +28,14 @@ import cn.jk.kaoyandanci.ui.fragment.ReviewFragment;
 import cn.jk.kaoyandanci.ui.fragment.SettingFragment;
 import cn.jk.kaoyandanci.util.Config;
 import cn.jk.kaoyandanci.util.Constant;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
-
+@RuntimePermissions
 public class MainActivity extends BaseActivity {
 
     public static boolean DATA_CHANGED = false;
@@ -205,4 +215,40 @@ public class MainActivity extends BaseActivity {
         super.onSaveInstanceState(outState);
     }
 
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+    public void startAdvancedSettingActivity() {
+        startActivity(new Intent(this, AdvanceSettingActivity.class));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // NOTE: delegate the permission handling to generated method
+        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    public void startAdvancedSettingActivityWithPermissionCheck() {
+        MainActivityPermissionsDispatcher.startAdvancedSettingActivityWithPermissionCheck(this);
+    }
+
+    @OnShowRationale({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+    void showRationaleForStorage(final PermissionRequest request) {
+        new MaterialDialog.Builder(this).content("我需要存储权限来打开高级设置(๑•́ ₃ •̀๑)").positiveText(R.string.agree)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        request.proceed();
+                    }
+                }).show();
+    }
+
+    @OnPermissionDenied({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+    void showDeniedForCamera() {
+        Toast.makeText(this, "为什么要这样对我(灬ºωº灬)", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnNeverAskAgain({Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})
+    void showNeverAskForCamera() {
+        Toast.makeText(this, "恩断义绝!好好想想你做过什么!(,,ﾟДﾟ)", Toast.LENGTH_SHORT).show();
+    }
 }
