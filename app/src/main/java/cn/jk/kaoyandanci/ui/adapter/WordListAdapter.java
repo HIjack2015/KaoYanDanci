@@ -17,9 +17,9 @@ import butterknife.ButterKnife;
 import cn.jk.kaoyandanci.R;
 import cn.jk.kaoyandanci.model.Word;
 import cn.jk.kaoyandanci.model.WordState;
+import cn.jk.kaoyandanci.ui.activity.BaseWordListActivity;
 import cn.jk.kaoyandanci.ui.activity.MainActivity;
 import cn.jk.kaoyandanci.ui.activity.WordDetailActivity;
-import cn.jk.kaoyandanci.ui.activity.WordListActivity;
 import cn.jk.kaoyandanci.ui.activity.YoudaoWordActivity;
 import cn.jk.kaoyandanci.util.Constant;
 
@@ -83,7 +83,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
 
                     wordList.remove(position);
 
-                    ((WordListActivity) context).reverseNeverShow(word);
+                    ((BaseWordListActivity) context).reverseNeverShow(word);
                     notifyItemRemoved(position);
                     notifyItemRangeChanged(position, wordList.size());
                     MainActivity.DATA_CHANGED = true;
@@ -99,7 +99,7 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.ViewHo
             holder.collectBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((WordListActivity) context).reverseCollect(word);
+                    ((BaseWordListActivity) context).reverseCollect(word);
                     if (WordState.isCollect(word)) {
                         holder.collectBtn.setImageResource(R.drawable.blue_star);
                     } else {

@@ -27,18 +27,17 @@
 
     <EditText
         android:id="@+id/contactInfoEdt"
-        android:layout_width="272dp"
+        android:layout_width="329dp"
         android:layout_height="50dp"
-
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="59dp"
         android:ems="10"
-        android:hint="这里写联系方式"
+        android:hint="这里写联系方式(不填则我无法联系到你)"
         android:inputType="text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contentEdt" />
+        app:layout_constraintTop_toBottomOf="@+id/contentEdt"/>
 
     <Button
         android:id="@+id/submitBtn"

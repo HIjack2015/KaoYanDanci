@@ -3,9 +3,7 @@ package cn.jk.kaoyandanci.model;
 import android.content.Context;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import cn.jk.kaoyandanci.util.Config;
 import cn.jk.kaoyandanci.util.SPUtil;
@@ -16,8 +14,6 @@ import cn.jk.kaoyandanci.util.ToastUtil;
  */
 
 public class LearnWordList extends WordList {
-    //用户第一次学习就掌握了的单词.
-    public List<Word> easyWord = new ArrayList<>();
 
     String haveLearnSp;
     int shouldLearn;
@@ -101,14 +97,6 @@ public class LearnWordList extends WordList {
         return "已经完成今日学习计划";
     }
 
-    @Override
-    public void currentNeverShow() {
-        Word currentWord = words.get(currentPosition);
-        if (currentWord.getLastLearnTime() == null || currentWord.getLastLearnTime().getTime() == 0) {
-            easyWord.add(currentWord);
-        }
-        super.currentNeverShow();
-    }
 
     @Override
     public String getEmptyMessage() {

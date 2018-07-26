@@ -48,7 +48,7 @@ import cn.jk.kaoyandanci.ui.dialog.PleaseDonateDialog;
 import cn.jk.kaoyandanci.util.Constant;
 import cn.jk.kaoyandanci.util.FileUtil;
 import cn.jk.kaoyandanci.util.MD5;
-import cn.jk.kaoyandanci.util.NetWordUtil;
+import cn.jk.kaoyandanci.util.NetWorkUtil;
 import cn.jk.kaoyandanci.util.TencentCloudService;
 import cn.jk.kaoyandanci.util.ToastUtil;
 
@@ -148,7 +148,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         downloadVoicePackPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if (!NetWordUtil.isOnline(getActivity())) {
+                if (!NetWorkUtil.isOnline(getActivity())) {
                     ToastUtil.showShort(getActivity(), "请先联网");
                     return false;
                 }
@@ -170,7 +170,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         backupPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if (!NetWordUtil.isOnline(getActivity())) {
+                if (!NetWorkUtil.isOnline(getActivity())) {
                     ToastUtil.showShort(getActivity(), "请先联网");
                     return false;
                 }
@@ -194,7 +194,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
         restorePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if (!NetWordUtil.isOnline(getActivity())) {
+                if (!NetWorkUtil.isOnline(getActivity())) {
                     ToastUtil.showShort(getActivity(), "请先联网");
                     return false;
                 }

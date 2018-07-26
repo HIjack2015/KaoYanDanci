@@ -9,21 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cn.jk.kaoyandanci.R;
 import cn.jk.kaoyandanci.model.Word;
 import cn.jk.kaoyandanci.model.WordDao;
-import cn.jk.kaoyandanci.ui.activity.MainActivity;
 import cn.jk.kaoyandanci.ui.activity.MyWordListActivity;
-import cn.jk.kaoyandanci.util.Constant;
-import cn.jk.kaoyandanci.util.JsonReader;
 import cn.jk.kaoyandanci.util.ToastUtil;
 
 /**
@@ -113,7 +104,7 @@ public class AddWordDialog extends DialogFragment {
         word.setCollect(1);
         word.setEasy(false);
         wordDao.insert(word);
-        context.refresh();
+        context.addWord(word);
         ToastUtil.showShort(context, "添加成功");
     }
 

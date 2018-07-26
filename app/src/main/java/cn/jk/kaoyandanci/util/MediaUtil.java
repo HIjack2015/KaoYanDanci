@@ -19,7 +19,7 @@ public class MediaUtil {
         HttpProxyCacheServer proxy = ((InitApplication) context.getApplicationContext()).getProxy(context);
         final String proxyUrl = proxy.getProxyUrl(url);
         if (!proxy.isCached(proxyUrl)) {
-            if (!NetWordUtil.isOnline(context)) {
+            if (!NetWorkUtil.isOnline(context)) {
                 return false;
             }
         }

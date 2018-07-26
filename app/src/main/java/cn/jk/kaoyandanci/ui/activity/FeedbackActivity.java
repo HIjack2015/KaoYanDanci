@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,11 +60,13 @@ public class FeedbackActivity extends BaseActivity {
                     @Override
                     public void onResponse(String response) {
                         ToastUtil.showShort(context, response);
+                        submitBtn.setClickable(true);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 ToastUtil.showShort(context, error.toString());
+                submitBtn.setClickable(true);
             }
         }) {
             protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
@@ -73,7 +76,7 @@ public class FeedbackActivity extends BaseActivity {
                 }
                 params.put("guid", guid);
                 params.put("project", project);
-                params.put("content", content);
+                params.put("content", content + new Date().toString());
 
                 return params;
             }
@@ -81,5 +84,6 @@ public class FeedbackActivity extends BaseActivity {
             ;
         };
         requestQueue.add(feedbackRequest);
+        submitBtn.setClickable(false);
     }
 }

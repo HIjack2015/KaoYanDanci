@@ -13,8 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.afollestad.aesthetic.Aesthetic;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,9 +33,7 @@ import cn.jk.kaoyandanci.ui.dialog.NeverShowWordDialog;
 import cn.jk.kaoyandanci.util.ChineseCheck;
 import cn.jk.kaoyandanci.util.Config;
 import cn.jk.kaoyandanci.util.Constant;
-import cn.jk.kaoyandanci.util.EmptyNetListener;
 import cn.jk.kaoyandanci.util.MediaUtil;
-import cn.jk.kaoyandanci.util.NetWorkSingleton;
 import cn.jk.kaoyandanci.util.OnSwipeTouchListener;
 import cn.jk.kaoyandanci.util.SPUtil;
 import cn.jk.kaoyandanci.util.ToastUtil;
@@ -45,7 +41,6 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
 import static cn.jk.kaoyandanci.util.ColorUtil.setColor;
-import static com.android.volley.Request.Method.GET;
 
 public class LearnWordActivity extends BaseActivity {
 
@@ -324,10 +319,7 @@ public class LearnWordActivity extends BaseActivity {
         Word currentWord = words.next();
         if (currentWord == null) {
             String message = words.getFinishMessage();
-            if (words instanceof LearnWordList) {
-                List<Word> easyWords = ((LearnWordList) words).easyWord;
-                sendEasyWordsToServer(easyWords);
-            }
+
             ToastUtil.showShort(context, message);
             finish();
             return;
@@ -335,21 +327,7 @@ public class LearnWordActivity extends BaseActivity {
         dealWordChange(currentWord);
     }
 
-    private void sendEasyWordsToServer(List<Word> easyWords) {
-        String wordsStr = "";
-        if (easyWords.size() == 0) {
-            return;
-        }
-        for (Word easyWord : easyWords) {
-            wordsStr = wordsStr + easyWord.getEnglish() + ",";
-        }
 
-        String addUrl = Constant.ADD_EASY_WORD_URL + "?easyWords=" + wordsStr;
-        RequestQueue requestQueue = NetWorkSingleton.getInstance(context).getRequestQueue();
-        StringRequest feedbackRequest = new StringRequest(GET, addUrl,
-                EmptyNetListener.emptyResponseListener, EmptyNetListener.emptyErrorListener);
-        requestQueue.add(feedbackRequest);
-    }
 
     public void dealWordChange(Word currentWord) {
         setCurrentWord(currentWord);
