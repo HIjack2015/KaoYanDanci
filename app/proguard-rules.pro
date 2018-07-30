@@ -24,7 +24,7 @@
 -dontoptimize                    # 优化不优化输入的类文件
 -dontwarn
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*  # 混淆时所采用的算法
-
+  -dontwarn okio.**
 #保持哪些类不被混淆
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application

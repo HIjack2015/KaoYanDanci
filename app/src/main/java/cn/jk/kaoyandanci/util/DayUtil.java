@@ -51,6 +51,7 @@ public class DayUtil {
     public static Date getFirstDayOfMonth(int year, int month) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
         return calendar.getTime();
     }
@@ -58,6 +59,7 @@ public class DayUtil {
     public static Date getLastDayOfMonth(int year, int month) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);

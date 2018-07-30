@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="word_web_source_type">
+        <item>有道</item>
+        <item>词霸</item>
+    </string-array>
+</resources>

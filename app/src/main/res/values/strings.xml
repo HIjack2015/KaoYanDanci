@@ -98,6 +98,7 @@
     <string name="will_clear_local">这将覆盖您本地的学习记录!!!</string>
     <string name="please_wait">请耐心等待</string>
     <string name="agree">好的</string>
+    <string name="please_select_word_web_type">请选择单词详情来源</string>
     <string-array name="word_type">
         <item>已掌握</item>
         <item>已认识</item>

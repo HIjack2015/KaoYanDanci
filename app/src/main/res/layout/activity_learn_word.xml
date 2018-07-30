@@ -167,7 +167,7 @@
                         style="@style/ValueText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10-10 3:5" />
+                        tools:text="10-10 3:5"/>
 
                 </LinearLayout>
 

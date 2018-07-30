@@ -46,6 +46,7 @@ import cn.jk.kaoyandanci.ui.activity.WordListActivity;
 import cn.jk.kaoyandanci.ui.dialog.DownloadDialog;
 import cn.jk.kaoyandanci.ui.dialog.PleaseDonateDialog;
 import cn.jk.kaoyandanci.util.Constant;
+import cn.jk.kaoyandanci.util.DateLongGson;
 import cn.jk.kaoyandanci.util.FileUtil;
 import cn.jk.kaoyandanci.util.MD5;
 import cn.jk.kaoyandanci.util.NetWorkUtil;
@@ -59,7 +60,7 @@ import static cn.jk.kaoyandanci.util.Constant.WORD_LIST_LBL;
  */
 
 public class AdvanceSettingFragment extends PreferenceFragment {
-
+    Gson mGson = DateLongGson.gson;
     DownloadDialog downloadDialog;
     AdvanceSettingActivity context;
     MaterialDialog loadingDialog;
@@ -274,7 +275,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
             Type listType = new TypeToken<List<Word>>() {
             }.getType();
 
-            List<Word> words = new Gson().fromJson(content, listType);
+            List<Word> words = mGson.fromJson(content, listType);
 
             DaoSession daoSession = ((InitApplication) context.getApplicationContext()).getDaoSession();
             WordDao wordDao = daoSession.getWordDao();
@@ -390,7 +391,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
 //        for (Word word : words) {
 //            wordRecords.add(new WordRecord(word));
 //        }
-        String wordRecordJsonStr = new Gson().toJson(words);
+        String wordRecordJsonStr = mGson.toJson(words);
         File file = new File(context.getFilesDir(), recordName);
         FileOutputStream outputStream;
 

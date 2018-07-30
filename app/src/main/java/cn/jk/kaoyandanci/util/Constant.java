@@ -68,6 +68,7 @@ public class Constant {
     public static int allWordCount = 5492;
     public static int PLAN_LEARN_NO = 10;
     public static String youdaoWordPageUrl = "http://m.youdao.com/dict?le=eng&q=";
+    public static String cibaWordPageUrl = "http://m.iciba.com/";
     public static String searchTipShow = "searchTipShow";
     public static String shouldShowGuide = "shouldShowGuide";
     public static String downloadVoicePackUrl = "http://kydc-1253381140.costj.myqcloud.com/english.zip";
