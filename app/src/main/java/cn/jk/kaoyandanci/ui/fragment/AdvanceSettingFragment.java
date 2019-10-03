@@ -280,7 +280,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
             DaoSession daoSession = ((InitApplication) context.getApplicationContext()).getDaoSession();
             WordDao wordDao = daoSession.getWordDao();
 
-            wordDao.updateInTx(words);
+            wordDao.updateInTx(words); //TODO 不要中文解释. 但是greendao没有提供updateselective这个函数.所以很难搞.
 
             context.runOnUiThread(new Runnable() {
 

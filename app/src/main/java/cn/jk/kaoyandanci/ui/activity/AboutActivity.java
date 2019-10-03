@@ -3,6 +3,7 @@ package cn.jk.kaoyandanci.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -26,9 +27,11 @@ public class AboutActivity extends BaseActivity {
     @BindView(R.id.feedbackLbl)
     TextView feedbackLbl;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
         getSupportActionBar().setTitle("关于软件");

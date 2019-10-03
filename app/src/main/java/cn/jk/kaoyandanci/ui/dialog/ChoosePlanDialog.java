@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -39,7 +41,7 @@ public class ChoosePlanDialog extends DialogFragment {
     MainActivity context;
     WordDao wordDao;
     //未掌握单词数目.
-    int unGraspCount =0;
+    int unGraspCount = 0;
     int learnPerDayRecord = -1;
     int needDayRecord = -1;
 
@@ -69,9 +71,6 @@ public class ChoosePlanDialog extends DialogFragment {
         ButterKnife.bind(this, view);
 
 
-
-
-
         boolean isCoreMode = Config.coreModeIsOn();
         boolean isEasyMode = Config.easyModeIsOn();
 
@@ -80,6 +79,22 @@ public class ChoosePlanDialog extends DialogFragment {
 
         int learnPerDay = Config.getPlanShouldLearn();
         learnPerDayTxt.setText(String.valueOf(learnPerDay));
+        learnPerDayTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         return builder.create();
     }
 
@@ -127,11 +142,5 @@ public class ChoosePlanDialog extends DialogFragment {
 
         needDayRecord = needDay;
         learnPerDayRecord = learnPerDay;
-
-        learnPerDayTxt.setText(String.valueOf(learnPerDay));
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, needDay);
-        finishTimeTxt.setText(DayUtil.getFormatDate(calendar));
     }
-
 }

@@ -3,10 +3,11 @@ buildscript {
         jcenter()
         mavenCentral()
 
+        google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
     }
 }
@@ -23,6 +24,7 @@ bugly {
 }
 android {
     compileSdkVersion target_sdk_version
+
     defaultConfig {
         applicationId "cn.jk.kaoyandanci"
         minSdkVersion min_sdk_version
@@ -30,6 +32,11 @@ android {
         versionCode version_code
         versionName version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
     sourceSets {
         main {
@@ -109,7 +116,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
     compile "com.afollestad:aesthetic:0.4.7"
     compile "com.danikula:videocache:2.7.0"
-    compile "com.android.volley:volley:1.0.0"
+    compile "com.android.volley:volley:1.1.0"
     compile 'com.tencent.qcloud:cosxml:5.4.4'
     compile "com.github.prolificinteractive:material-calendarview:1.6.0"
     implementation "com.github.hotchemi:permissionsdispatcher:3.3.1"
