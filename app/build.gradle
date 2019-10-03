@@ -3,10 +3,11 @@ buildscript {
         jcenter()
         mavenCentral()
 
+        google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
     }
 }
@@ -23,13 +24,20 @@ bugly {
 }
 android {
     compileSdkVersion target_sdk_version
+
     defaultConfig {
+        multiDexEnabled true
         applicationId "cn.jk.kaoyandanci"
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
         versionCode version_code
         versionName version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
     sourceSets {
         main {
@@ -60,7 +68,7 @@ android {
             //加载混淆配置文件
             //proguard-android.txt为默认的混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            debuggable true
+            debuggable false
 
         }
     }
@@ -77,7 +85,7 @@ configurations.all {
     }
 }
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -93,25 +101,26 @@ dependencies {
     //图表支持
     //音频缓存//当前没用
     //功能介绍页面
-    compile "com.tencent.bugly:crashreport:2.6.5"
-    compile "com.google.code.gson:gson:2.8.0"
-    compile "org.greenrobot:greendao:3.2.2"
-    compile "com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1"
-    compile "com.android.support:cardview-v7:$support_version"
-    compile "com.android.support:appcompat-v7:$support_version"
-    compile "com.android.support:design:$support_version"
-    compile "com.android.support.constraint:constraint-layout:1.0.2"
-    compile "com.android.support:support-v4:$support_version"
-    compile "com.jakewharton:butterknife:8.5.1"
-    compile "com.github.PhilJay:MPAndroidChart:v3.0.2"
-    compile "com.github.apl-devs:appintro:v4.2.0"
+    implementation "com.android.support:multidex:1.0.3"
+    implementation "com.tencent.bugly:crashreport:2.6.5"
+    implementation "com.google.code.gson:gson:2.8.0"
+    implementation "org.greenrobot:greendao:3.2.2"
+    implementation "com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1"
+    implementation "com.android.support:cardview-v7:$support_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support.constraint:constraint-layout:1.0.2"
+    implementation "com.android.support:support-v4:$support_version"
+    implementation "com.jakewharton:butterknife:8.5.1"
+    implementation "com.github.PhilJay:MPAndroidChart:v3.0.2"
+    implementation "com.github.apl-devs:appintro:v4.2.0"
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
-    compile "com.afollestad:aesthetic:0.4.7"
-    compile "com.danikula:videocache:2.7.0"
-    compile "com.android.volley:volley:1.0.0"
-    compile 'com.tencent.qcloud:cosxml:5.4.4'
-    compile "com.github.prolificinteractive:material-calendarview:1.6.0"
+    implementation "com.afollestad:aesthetic:0.4.7"
+    implementation "com.danikula:videocache:2.7.0"
+    implementation "com.android.volley:volley:1.0.0"
+    implementation 'com.tencent.qcloud:cosxml:5.4.4'
+    implementation "com.github.prolificinteractive:material-calendarview:1.6.0"
     implementation "com.github.hotchemi:permissionsdispatcher:3.3.1"
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.3.1"
     testCompile "junit:junit:4.12"

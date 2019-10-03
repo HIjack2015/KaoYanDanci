@@ -40,7 +40,8 @@
 -keep interface android.support.v4.app.** { *; }
 -keep class android.support.v7.widget.SearchView { *; }
 -keepattributes *Annotation*
-
+-keep class com.squareup.** { *; }
+-keep class permissions.dispatcher.** { *; }
 #如果有引用v4包可以添加下面这行
 -keep public class * extends android.support.v4.app.Fragment
 
@@ -73,7 +74,9 @@ public static java.lang.String TABLENAME;
  -dontwarn org.greenrobot.greendao.database.**
  # If you do not use RxJava:
  -dontwarn rx.**
-  
+   -dontwarn com.**
+      -dontwarn permissions.**
+      -dontwarn kotlin.**
 ### greenDAO 2
 -keepclassmembers class * extends de.greenrobot.dao.AbstractDao {
 public static java.lang.String TABLENAME;
@@ -111,3 +114,4 @@ public static java.lang.String TABLENAME;
 -dontwarn rx.**
 -renamesourcefileattribute SourceFile # 保持行号
 -keepattributes SourceFile,LineNumberTable
+-dontwarn *
