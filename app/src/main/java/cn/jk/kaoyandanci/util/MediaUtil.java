@@ -6,6 +6,9 @@ import android.util.Log;
 
 import com.danikula.videocache.HttpProxyCacheServer;
 
+import java.io.IOException;
+import java.util.logging.Logger;
+
 import cn.jk.kaoyandanci.InitApplication;
 
 /**
@@ -24,30 +27,20 @@ public class MediaUtil {
             }
         }
         mediaPlayer.reset();
+
+
         try {
-            new Runnable() {
+            mediaPlayer.setDataSource(proxyUrl);
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
-                public void run() {
-                    try {
+                public void onPrepared(MediaPlayer player) {
+                    player.start();
 
-                        mediaPlayer.setDataSource(proxyUrl);
-                        mediaPlayer.prepareAsync();
-
-                        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                            @Override
-                            public void onPrepared(MediaPlayer player) {
-                                player.start();
-
-                            }
-                        });
-                    } catch (Exception e) {
-                        ToastUtil.showShort(context, e.toString());
-                    }
                 }
-            }.run();
+            });
         } catch (Exception e) {
-            Log.e("error", e.toString());
-            return false;
+            Log.d("error ", e.toString());
         }
         return true;
     }

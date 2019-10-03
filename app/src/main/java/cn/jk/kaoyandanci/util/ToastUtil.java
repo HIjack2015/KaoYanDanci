@@ -116,6 +116,10 @@ public class ToastUtil {
         }.start();
     }
 
+    public static void showLong(Context context, String s) {
+        Toast.makeText(context, s, Toast.LENGTH_LONG).show();
+    }
+
     /**
      * 返回内部的toast对象。可以进行多样化的设置
      */

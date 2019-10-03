@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="word_web_source_type">
-        <item>有道</item>
-        <item>词霸</item>
+        <item>有道(大家先用有道吧)</item>
+        <item>词霸(不太好使,不让我们看释义了)</item>
+        <item>柯林斯(可能打不开,需要梯子)</item>
     </string-array>
 </resources>

@@ -1,18 +1,24 @@
 package cn.jk.kaoyandanci.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,8 +36,15 @@ public class YoudaoWordActivity extends BaseActivity {
 
     public static final String youdao = "youdao";
     public static final String ciba = "ciba";
+    public static final String kelinsi= "kelinsi";
+
+
     String word_url_type = "word_url_type";
     String english;
+
+    Map<String, String> headers = new HashMap<String, String>();
+
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +61,9 @@ public class YoudaoWordActivity extends BaseActivity {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         getSupportActionBar().setTitle("单词详情");
+        CookieManager.getInstance().setAcceptCookie(true);
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-
+        mWebView.getSettings().setUserAgentString("Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1");
         final String current_type = (String) SPUtil.get(context, word_url_type, youdao);
 
 
@@ -86,6 +100,9 @@ public class YoudaoWordActivity extends BaseActivity {
                             case 1:
                                 type = ciba;
                                 break;
+                            case 2:
+                                type = kelinsi;
+                                break;
                         }
                         SPUtil.putAndApply(context, word_url_type, type);
                         loadWordDetail(type);
@@ -96,15 +113,21 @@ public class YoudaoWordActivity extends BaseActivity {
                 .show();
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     void loadWordDetail(String type) {
         mWebView.stopLoading();
         WebViewClient webViewClient = new AppWebViewClients(mProgressBar, mWebView, type);
         String wordUrl = Constant.youdaoWordPageUrl + english;
         if (type.equals(ciba)) {
-            wordUrl = Constant.cibaWordPageUrl + english;
+            wordUrl = Constant.cibaWordPageUrl + english+"?flag=searchBack";
+        } else  if (type.equals(kelinsi))  {
+            wordUrl=Constant.kesilinPageUrl+english;
         }
         mWebView.setWebViewClient(webViewClient);
-        mWebView.loadUrl(wordUrl);
+        mWebView.loadUrl(wordUrl,headers);
+
+        mWebView.setWebContentsDebuggingEnabled(true);
+
     }
 
     class AppWebViewClients extends WebViewClient {
@@ -123,7 +146,7 @@ public class YoudaoWordActivity extends BaseActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-            view.loadUrl(url);
+            view.loadUrl(url,headers);
             return true;
         }
 
@@ -136,11 +159,14 @@ public class YoudaoWordActivity extends BaseActivity {
             if (type.equals(youdao)) {
                 javaScript = "javascript:(function() {__closeBanner();})()";
 
-            } else if (type.equals(ciba)) {
-                javaScript = "javascript:(function() {$($(\"[src='//cdn.iciba.com/www/img/m/iciba-dialog/exit2.png']\")).click();$($(\"[src='//cdn.iciba.com/www/img/m/iciba-dialog/close.png']\")).click();})()";
 
+            } else if (type.equals(ciba)) {
+                javaScript="javascript:(function() { $(\"div.dic-follow\").hide() })()";
+            } else if (type.equals(kelinsi)) {
+                javaScript="javascript:(function() { $(\".cB-hook \").hide() })()";
             }
             view.loadUrl(javaScript);
+
 
         }
 

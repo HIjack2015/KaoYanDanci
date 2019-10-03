@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.support.annotation.NonNull;
 import android.widget.TextView;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +30,8 @@ public class AboutActivity extends BaseActivity {
     TextView donateLbl;
     @BindView(R.id.feedbackLbl)
     TextView feedbackLbl;
-
+    @BindView(R.id.suggestAppLbl)
+    TextView suggestAppLbl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,17 @@ public class AboutActivity extends BaseActivity {
     @OnClick(R.id.commonQuestionLbl)
     public void onCommonQuestionLblClicked() {
         startActivity(new Intent(context, CommonQuestionActivity.class));
+    }
+    @OnClick(R.id.suggestAppLbl)
+    public void onsuggestAppLblclicked() {
+        new MaterialDialog.Builder(this).content("背单词是考研单词的升级版,(可能)会长期维护,并且释义更全,单词书更多,欢迎下载(๑•́ ₃ •̀๑)").positiveText(R.string.open_broswer)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coolapk.com/apk/240082"));
+                        startActivity(browserIntent);
+                    }
+                }).show();
     }
 
     @OnClick(R.id.rateLbl)

@@ -180,7 +180,7 @@ public class ReviewFragment extends Fragment {
         if (!hidden) {
             boolean haveShowTip = (boolean) SPUtil.get(context, Constant.SMART_REVIEW_TIP, false);
             if (!haveShowTip) {
-                ToastUtil.showShort(context, "长按开始复习可以进入智能复习呦");
+           //     ToastUtil.showShort(context, "长按开始复习可以进入智能复习呦");
                 SPUtil.putAndApply(context, Constant.SMART_REVIEW_TIP, true);
             }
         }

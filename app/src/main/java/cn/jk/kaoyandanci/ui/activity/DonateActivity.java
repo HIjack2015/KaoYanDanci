@@ -43,7 +43,7 @@ public class DonateActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate);
         ButterKnife.bind(this);
-        getSupportActionBar().setTitle("捐赠开发者");
+        getSupportActionBar().setTitle("打赏开发者");
     }
 
     @OnClick(R.id.alipayBtn)

@@ -269,7 +269,7 @@ public class LearnWordActivity extends BaseActivity {
         coreImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showShort(context, "五角星说明这是个核心单词");
+                ToastUtil.showLong(context, "五角星说明这是个核心单词,如需要收藏请长按该单词英文~");
             }
         });
 

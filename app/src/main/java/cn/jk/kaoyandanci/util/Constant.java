@@ -69,6 +69,7 @@ public class Constant {
     public static int PLAN_LEARN_NO = 10;
     public static String youdaoWordPageUrl = "https://m.youdao.com/dict?le=eng&q=";
     public static String cibaWordPageUrl = "https://m.iciba.com/";
+    public static String kesilinPageUrl="https://www.collinsdictionary.com/zh/dictionary/english/";
     public static String searchTipShow = "searchTipShow";
     public static String shouldShowGuide = "shouldShowGuide";
     public static String downloadVoicePackUrl = "https://kydc-1253381140.costj.myqcloud.com/english.zip";

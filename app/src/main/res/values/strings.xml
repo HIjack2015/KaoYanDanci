@@ -66,11 +66,11 @@
     <string name="alipayUrl">http://qr.alipay.com/FKX001588VV47I7FULZF7F</string>
     <string name="about_app">about_pref</string>
     <string name="app_desc">小巧干净的考研单词工具</string>
-    <string name="share_content">我正在使用考研单词app备战考研英语,这东西还不错,你也来试试?</string>
-    <string name="donate_use">  &#160;&#160;&#160;&#160;你的捐赠是我继续前行的动力,谢谢你的支持.</string>
+    <string name="share_content">我正在使用考研单词app备战考研英语,这东西还不错,你也来试试? 下载地址是: https://www.coolapk.com/apk/148051</string>
+    <string name="donate_use">  &#160;&#160;&#160;&#160;你的打赏是我继续前行的动力,谢谢你的支持.</string>
     <string name="download_voice_pack">download_voice_pack</string>
     <string name="pleaseDonate">语音包使用了云存储,这东西开发者是贴了钱的,所以如果您要使用此功能,
-        请打开-关于软件-捐赠开发者,向开发者付款5角
+        请打开-关于软件-打赏开发者,向开发者付款5角
         多谢合作.</string>
     <string name="unziping">解压中.大概需要2分钟.完成后会有提示.中途不要退出应用..</string>
     <string name="unzip_finished">解压完成...确认可以离线发音后记得付款5角...谢谢合作:)</string>
@@ -99,6 +99,7 @@
     <string name="please_wait">请耐心等待</string>
     <string name="agree">好的</string>
     <string name="please_select_word_web_type">请选择单词详情来源</string>
+    <string name="open_broswer">打开浏览器下载</string>
     <string-array name="word_type">
         <item>已掌握</item>
         <item>已认识</item>

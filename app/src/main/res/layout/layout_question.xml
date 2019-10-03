@@ -11,6 +11,7 @@
         android:layout_marginLeft="16dp">
 
         <TextView
+            android:background="?selectableItemBackground"
             android:id="@+id/questionTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
