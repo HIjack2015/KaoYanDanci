@@ -27,7 +27,7 @@ public class Constant {
     public static final String PIE_WORD = "pieWord";
     public static final String QUESTION = "QUESTION";
     public static final String youdaoVoiceUrl = "http://dict.youdao.com//dictvoice?type=2&audio=";
-    public static final String shanbeiVoiceUrl = "http://media.shanbay.com/audio/us/";
+    public static final String shanbeiVoiceUrl = "https://media.shanbay.com/audio/us/";
     public static String cibaUrl= "http://dict-co.iciba.com/api/dictionary.php?key=AA6C7429C3884C9E766C51187BD1D86F&type=json&w=";
     public static final String PLAN_LEARN = "shouldLearn";
     public static final String SHOULD_SHOW_SETTING_FRAGMENT = "SHOULD_SHOW_SETTING_FRAGMENT";
@@ -54,7 +54,7 @@ public class Constant {
             "What hurts more, the pain of hard work or the pain of regret ? ", "All things come to those who wait",
             "Nothing is impossible!", "Keep on going never give up", "Nothing for nothing. ",
             "What is the man's first duty? The answer is brief: to be himself. "
-            , "诶,其实我有点坚持不下去了.:<"};
+            , "要努力 要奋斗.:<"};
     public static final String QUERY_SQL = "querySql";
     public static final String TITLE = "TITLE";
     public static final String QUERY_BUILDER = "QUERY_BUILDER";
@@ -67,11 +67,11 @@ public class Constant {
     public static int nextDelay = 1500;
     public static int allWordCount = 5492;
     public static int PLAN_LEARN_NO = 10;
-    public static String youdaoWordPageUrl = "http://m.youdao.com/dict?le=eng&q=";
-    public static String cibaWordPageUrl = "http://m.iciba.com/";
+    public static String youdaoWordPageUrl = "https://m.youdao.com/dict?le=eng&q=";
+    public static String cibaWordPageUrl = "https://m.iciba.com/";
     public static String searchTipShow = "searchTipShow";
     public static String shouldShowGuide = "shouldShowGuide";
-    public static String downloadVoicePackUrl = "http://kydc-1253381140.costj.myqcloud.com/english.zip";
+    public static String downloadVoicePackUrl = "https://kydc-1253381140.costj.myqcloud.com/english.zip";
 
 
 

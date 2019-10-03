@@ -1,8 +1,10 @@
 package cn.jk.kaoyandanci;
 
+import android.Manifest;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.multidex.MultiDexApplication;
 
 import com.danikula.videocache.HttpProxyCacheServer;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -21,11 +23,12 @@ import static android.os.Build.ID;
 /**
  * Created by then24 on 2015/9/5.
  */
-public class InitApplication extends Application {
+public class InitApplication extends MultiDexApplication {
 
     DaoMaster.DevOpenHelper helper;
     SQLiteDatabase db;
     DaoMaster daoMaster;
+
     Context context;
     private DaoSession daoSession;
     private HttpProxyCacheServer proxy;

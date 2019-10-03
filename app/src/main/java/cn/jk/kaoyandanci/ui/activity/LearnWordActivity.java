@@ -82,6 +82,7 @@ public class LearnWordActivity extends BaseActivity {
     ImageView coreImg;
     private String mode;
 
+    boolean isFirstLearnWord=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -166,7 +167,8 @@ public class LearnWordActivity extends BaseActivity {
                 }
             }
         });
-        if (autoDisplay) {
+        if (autoDisplay&&!isFirstLearnWord) {
+            isFirstLearnWord=false;
             displayPronunciation();
         }
 
