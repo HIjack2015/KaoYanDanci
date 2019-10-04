@@ -38,7 +38,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class TencentCloudService {
 
     static final String bucketName = "kydc-record";
-    static final String prefix = "http://kydc-record-1253381150.cos.ap-chengdu.myqcloud.com";
+    static final String prefix = "https://kydc-record-1253381150.cos.ap-chengdu.myqcloud.com";
     public static String please = "这个存储空间里只有用户的学习记录备份,这个appId和secret只有cos的读写权限.所以对您来说没有任何价值," +
             "而且这个账户里边也没有钱.所以请不要乱搞,多谢.";
     public static String notice = "诶.我也知道这样不安全.但我实在是太懒了.:>,PS: 腾讯云文档真不好用";
@@ -56,6 +56,7 @@ public class TencentCloudService {
         CosXmlServiceConfig serviceConfig = new CosXmlServiceConfig.Builder()
                 .setAppidAndRegion(appid, region)
                 .setDebuggable(true)
+                .isHttps(true)
                 .builder();
 
 //创建获取签名类(请参考下面的生成签名示例，或者参考 sdk中提供的ShortTimeCredentialProvider类）

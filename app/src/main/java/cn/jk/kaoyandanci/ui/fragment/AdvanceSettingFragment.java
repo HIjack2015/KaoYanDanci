@@ -586,7 +586,7 @@ public class AdvanceSettingFragment extends PreferenceFragment {
                             @Override
                             public void run() {
                                 downloadDialog.dismiss();
-                                ToastUtil.showShort(context, context.getString(R.string.unzip_finished));
+                                ToastUtil.showLong(context, context.getString(R.string.unzip_finished));
                             }
                         });
                     }

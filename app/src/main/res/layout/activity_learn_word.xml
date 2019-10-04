@@ -213,7 +213,7 @@
         android:id="@+id/btnLyt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -225,15 +225,15 @@
         <Button
 
             android:id="@+id/unknownBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="不认识" />
 
         <Button
-            android:layout_marginLeft="8dp"
             android:id="@+id/knowBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
             android:text="认识" />
 
 
